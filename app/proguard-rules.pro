@@ -15,3 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+### retrolambda, ignore Java8 invokedynamics (which will be replaced)
+-dontwarn java.lang.invoke.**
