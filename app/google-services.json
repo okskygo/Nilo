@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "475048797049",
+    "firebase_url": "https://nilo-66df0.firebaseio.com",
+    "project_id": "nilo-66df0",
+    "storage_bucket": "nilo-66df0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475048797049:android:8b5ecba7bcaacb3e",
+        "android_client_info": {
+          "package_name": "com.silver.cat.nilo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475048797049-bmal2dopoikfvpr0t1n29gb0g4areuvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.silver.cat.nilo",
+            "certificate_hash": "32FFA0980C5643C6043FDFB8F7A857AE270A8C31"
+          }
+        },
+        {
+          "client_id": "475048797049-18jlchaqta14d1nctrus3j4me2if2bnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM3FebranzGj6JQQi_me8kcwk3df9Lh7Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475048797049-18jlchaqta14d1nctrus3j4me2if2bnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
