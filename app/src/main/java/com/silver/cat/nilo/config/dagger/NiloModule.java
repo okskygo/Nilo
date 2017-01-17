@@ -3,7 +3,6 @@ package com.silver.cat.nilo.config.dagger;
 import android.content.Context;
 
 import com.silver.cat.nilo.NiloApplication;
-import com.silver.cat.nilo.util.PermissionUtil;
 
 import javax.inject.Singleton;
 

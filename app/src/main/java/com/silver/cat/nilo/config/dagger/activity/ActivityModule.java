@@ -2,8 +2,6 @@ package com.silver.cat.nilo.config.dagger.activity;
 
 import android.app.Activity;
 
-import com.silver.cat.nilo.util.PermissionUtil;
-
 import dagger.Module;
 import dagger.Provides;
 

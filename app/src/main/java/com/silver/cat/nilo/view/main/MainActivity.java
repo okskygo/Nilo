@@ -1,10 +1,9 @@
 package com.silver.cat.nilo.view.main;
 
-import android.content.pm.PackageManager;
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -20,7 +19,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.silver.cat.nilo.NiloApplication;
 import com.silver.cat.nilo.R;
 import com.silver.cat.nilo.config.dagger.activity.ActivityModule;
-import com.silver.cat.nilo.util.PermissionUtil;
+import com.silver.cat.nilo.util.permission.PermissionResult;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import javax.inject.Inject;
@@ -29,7 +28,7 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
         .ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     @Inject
-    PermissionUtil permissionUtil;
+    PermissionResult permissionResult;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -42,7 +41,6 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
                 .newActivitySubComponent(new ActivityModule(this))
                 .inject(this);
 
-        permissionUtil.test();
 
         findViewById(R.id.button).setOnClickListener(v -> {
             int PLACE_PICKER_REQUEST = 1;
@@ -61,18 +59,16 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
                 (Places.PLACE_DETECTION_API).addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission
-                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            System.out.println(">>>>>> return");
-            return;
-        }
+        permissionResult.request(Manifest.permission.ACCESS_FINE_LOCATION).subscribe(granted -> {
+            if (granted) {
+                getCurrentPlace();
+            }
+        });
+
+    }
+
+    @SuppressWarnings("MissingPermission")
+    private void getCurrentPlace() {
         PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi.getCurrentPlace
                 (mGoogleApiClient, null);
         result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
