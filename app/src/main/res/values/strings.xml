@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Nilo</string>
     <string name="please_wait">請稍候...</string>
+    <string name="main_search_hint">請輸入想搜尋的關鍵字...</string>
 </resources>
