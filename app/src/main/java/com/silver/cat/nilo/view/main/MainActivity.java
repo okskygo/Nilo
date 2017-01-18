@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +24,7 @@ import com.silver.cat.nilo.R;
 import com.silver.cat.nilo.config.dagger.activity.ActivityModule;
 import com.silver.cat.nilo.databinding.ActivityMainBinding;
 import com.silver.cat.nilo.util.permission.PermissionResult;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import javax.inject.Inject;
@@ -62,13 +62,14 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
 
         RecyclerView recycler = dataBinding.recycler;
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.setAdapter(new MainAdapter());
+        recycler.setAdapter(new MainAdapter(this));
 
         mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(Places.GEO_DATA_API).addApi
                 (Places.PLACE_DETECTION_API).addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
 
-        permissionResult.request(Manifest.permission.ACCESS_FINE_LOCATION).subscribe(granted -> {
+        permissionResult.request(Manifest.permission.ACCESS_FINE_LOCATION).compose(bindUntilEvent
+                (ActivityEvent.DESTROY)).subscribe(granted -> {
             if (granted) {
                 getCurrentPlace();
             }

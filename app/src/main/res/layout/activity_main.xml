@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.silver.cat.nilo.view.main.MainViewModel"/>
+            type="com.silver.cat.nilo.view.main.model.MainViewModel"/>
     </data>
 
     <RelativeLayout
@@ -18,9 +18,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
-            android:clipToPadding="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="true"
             />
 
         <Button

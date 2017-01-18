@@ -11,7 +11,7 @@ import android.support.v4.app.ActivityCompat;
  * Created by xiezhenyu on 2017/1/17.
  */
 
-class PermissionHolderActivity extends Activity {
+public class PermissionHolderActivity extends Activity {
 
     private static Request request;
     private OnResult onResult;
@@ -25,6 +25,10 @@ class PermissionHolderActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(request == null){
+            finish();
+            return;
+        }
         this.onResult = request.getOnResult();
         String[] permissions = request.getPermissions();
         if (hasPermissions(permissions)) {
