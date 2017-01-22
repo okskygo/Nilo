@@ -2,12 +2,16 @@ package com.silver.cat.nilo.view.main;
 
 import android.Manifest;
 import android.databinding.DataBindingUtil;
+import android.databinding.OnRebindCallback;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.transition.TransitionManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -24,6 +28,7 @@ import com.silver.cat.nilo.R;
 import com.silver.cat.nilo.config.dagger.activity.ActivityModule;
 import com.silver.cat.nilo.databinding.ActivityMainBinding;
 import com.silver.cat.nilo.util.permission.PermissionResult;
+import com.silver.cat.nilo.view.main.model.MainViewModel;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -37,15 +42,25 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
 
     private GoogleApiClient mGoogleApiClient;
     private ActivityMainBinding dataBinding;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
         ((NiloApplication) getApplication()).getComponent()
                 .newActivitySubComponent(new ActivityModule(this))
                 .inject(this);
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        dataBinding.addOnRebindCallback(new OnRebindCallback() {
+            @Override
+            public boolean onPreBind(ViewDataBinding binding) {
+                TransitionManager.beginDelayedTransition(
+                        (ViewGroup) binding.getRoot());
+                return super.onPreBind(binding);
+            }
+        });
+        mainViewModel = new MainViewModel(this, dataBinding);
+        dataBinding.setModel(mainViewModel);
 
         dataBinding.button.setOnClickListener(v -> {
             int PLACE_PICKER_REQUEST = 1;
@@ -62,7 +77,7 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
 
         RecyclerView recycler = dataBinding.recycler;
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.setAdapter(new MainAdapter(this));
+        recycler.setAdapter(new MainAdapter());
 
         mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(Places.GEO_DATA_API).addApi
                 (Places.PLACE_DETECTION_API).addConnectionCallbacks(this)
@@ -108,6 +123,12 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         System.out.println("bundle = [" + bundle + "]");
+    }
+
+    @Override
+    protected void onDestroy() {
+        mainViewModel.destroy();
+        super.onDestroy();
     }
 
     @Override
