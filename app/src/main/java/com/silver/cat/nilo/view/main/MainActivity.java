@@ -28,7 +28,10 @@ import com.silver.cat.nilo.R;
 import com.silver.cat.nilo.config.dagger.activity.ActivityModule;
 import com.silver.cat.nilo.databinding.ActivityMainBinding;
 import com.silver.cat.nilo.util.permission.PermissionResult;
+import com.silver.cat.nilo.view.main.model.LogoViewModel;
 import com.silver.cat.nilo.view.main.model.MainViewModel;
+import com.silver.cat.nilo.view.main.model.RecyclerViewModel;
+import com.silver.cat.nilo.view.main.model.SearchViewModel;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -42,7 +45,7 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
 
     private GoogleApiClient mGoogleApiClient;
     private ActivityMainBinding dataBinding;
-    private MainViewModel mainViewModel;
+    private RecyclerViewModel recyclerViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,25 +62,23 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
                 return super.onPreBind(binding);
             }
         });
-        mainViewModel = new MainViewModel(this, dataBinding);
-        dataBinding.setModel(mainViewModel);
 
-        dataBinding.button.setOnClickListener(v -> {
-            int PLACE_PICKER_REQUEST = 1;
-            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        recyclerViewModel = new RecyclerViewModel(this, dataBinding.recycler);
 
-            try {
-                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-            } catch (GooglePlayServicesRepairableException e) {
-                e.printStackTrace();
-            } catch (GooglePlayServicesNotAvailableException e) {
-                e.printStackTrace();
-            }
-        });
+//        dataBinding.button.setOnClickListener(v -> {
+//            int PLACE_PICKER_REQUEST = 1;
+//            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+//
+//            try {
+//                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+//            } catch (GooglePlayServicesRepairableException e) {
+//                e.printStackTrace();
+//            } catch (GooglePlayServicesNotAvailableException e) {
+//                e.printStackTrace();
+//            }
+//        });
 
-        RecyclerView recycler = dataBinding.recycler;
-        recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.setAdapter(new MainAdapter());
+
 
         mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(Places.GEO_DATA_API).addApi
                 (Places.PLACE_DETECTION_API).addConnectionCallbacks(this)
@@ -127,7 +128,7 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
 
     @Override
     protected void onDestroy() {
-        mainViewModel.destroy();
+//        mainViewModel.destroy();
         super.onDestroy();
     }
 
