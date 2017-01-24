@@ -4,10 +4,13 @@ import android.content.Context;
 import android.databinding.ObservableInt;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.silver.cat.nilo.widget.model.ViewModel;
 import com.silver.cat.nilo.widget.view.KeyPreImeEditText;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,15 +22,14 @@ import io.reactivex.subjects.Subject;
  * Created by xiezhenyu on 2017/1/18.
  */
 
-public class SearchViewModel implements ViewModel {
+public class SearchViewModel implements ViewModel, Observer {
 
     public final ObservableInt editVisibility;
     public final ObservableInt textVisibility;
     private final Subject<Boolean> searchSubject = PublishSubject.create();
     private final Disposable disposable;
+    private final Context context;
     private boolean searchExpand;
-    private Context context;
-    private OnSearchStatusChangeListener listener;
     public final KeyPreImeEditText.OnKeyPreImgListener onKeyPreImgListener = new KeyPreImeEditText
             .OnKeyPreImgListener() {
 
@@ -35,24 +37,24 @@ public class SearchViewModel implements ViewModel {
         public boolean onKeyPreIme(int keyCode, KeyEvent event) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
                 searchExpand = false;
-                searchSubject.onNext(searchExpand);
+                searchSubject.onNext(false);
             }
             return true;
         }
     };
 
-
     public SearchViewModel(Context context, OnSearchStatusChangeListener listener) {
         this.context = context;
-        this.listener = listener;
         this.editVisibility = new ObservableInt(View.GONE);
         this.textVisibility = new ObservableInt(View.VISIBLE);
-        this.disposable = searchSubject.debounce(500, TimeUnit.MICROSECONDS).observeOn
-                (AndroidSchedulers.mainThread()).doOnNext
-                (willSearchExpand -> {
-                    listener.change(willSearchExpand);
-                    toggleSearchStatus(willSearchExpand);
-                }).subscribe();
+        this.disposable = searchSubject
+                .debounce(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(this::toggleSoftKeyboard)
+                .delay(200, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(listener::change)
+                .subscribe();
     }
 
     public void onSearchClick(View view) {
@@ -60,30 +62,39 @@ public class SearchViewModel implements ViewModel {
         searchSubject.onNext(searchExpand);
     }
 
-    public void toggleSearchStatus(boolean willSearchExpand) {
-        editVisibility.set(willSearchExpand ? View.VISIBLE : View.GONE);
-        textVisibility.set(willSearchExpand ? View.GONE : View.VISIBLE);
-//        if (willSearchExpand) {
-//            Observable.just(1).delay(500, TimeUnit.MILLISECONDS).subscribe(o -> {
-//                InputMethodManager inputMethodManager = (InputMethodManager) context
-//                        .getSystemService
-//                                (Context.INPUT_METHOD_SERVICE);
-//                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-//            });
-//        } else {
-//            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService
-//                    (Context.INPUT_METHOD_SERVICE);
-//            inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-//
-//        }
-
+    private void toggleSoftKeyboard(boolean show) {
+        if (show) {
+            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService
+                    (Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        } else {
+            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService
+                    (Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        }
     }
 
     @Override
     public void destroy() {
         disposable.dispose();
-        context = null;
-        listener = null;
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if (!(arg instanceof Boolean)) {
+            return;
+        }
+        boolean willSearchExpand = ((Boolean) arg);
+        editVisibility.set(willSearchExpand ? View.VISIBLE : View.GONE);
+        textVisibility.set(willSearchExpand ? View.GONE : View.VISIBLE);
+    }
+
+    /**
+     * Created by xiezhenyu on 2017/1/23.
+     */
+    public static interface OnSearchStatusChangeListener {
+
+        void change(boolean willSearchExpand);
+
+    }
 }
