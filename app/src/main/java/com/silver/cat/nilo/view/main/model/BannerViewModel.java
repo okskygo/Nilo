@@ -13,7 +13,7 @@ import java.util.Observer;
  * Created by xiezhenyu on 2017/1/23.
  */
 
-class BannerViewModel implements ViewModel, Observer {
+public class BannerViewModel implements ViewModel, Observer {
 
     public final ObservableInt visibility;
     public final ObservableBoolean contentShow;
