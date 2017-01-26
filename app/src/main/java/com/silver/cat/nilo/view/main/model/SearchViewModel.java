@@ -50,10 +50,10 @@ public class SearchViewModel implements ViewModel, Observer {
         this.disposable = searchSubject
                 .debounce(100, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(this::toggleSoftKeyboard)
+                .doOnNext(listener::change)
                 .delay(200, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(listener::change)
+                .doOnNext(this::toggleSoftKeyboard)
                 .subscribe();
     }
 
