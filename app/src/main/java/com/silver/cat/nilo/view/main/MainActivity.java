@@ -8,29 +8,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.transition.TransitionManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.places.ui.PlacePicker;
 import com.silver.cat.nilo.NiloApplication;
 import com.silver.cat.nilo.R;
 import com.silver.cat.nilo.config.dagger.activity.ActivityModule;
 import com.silver.cat.nilo.databinding.ActivityMainBinding;
 import com.silver.cat.nilo.util.permission.PermissionResult;
-import com.silver.cat.nilo.view.main.model.LogoViewModel;
 import com.silver.cat.nilo.view.main.model.MainViewModel;
-import com.silver.cat.nilo.view.main.model.RecyclerViewModel;
 import com.silver.cat.nilo.view.main.model.SearchViewModel;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -38,14 +31,15 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import javax.inject.Inject;
 
 public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
-        .ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        .ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, SearchViewModel
+        .OnSearchStatusChangeListener {
 
     @Inject
     PermissionResult permissionResult;
 
     private GoogleApiClient mGoogleApiClient;
     private ActivityMainBinding dataBinding;
-    private RecyclerViewModel recyclerViewModel;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +57,9 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
             }
         });
 
-        recyclerViewModel = new RecyclerViewModel(this, dataBinding.recycler);
+        mainViewModel = new MainViewModel(this, this);
+        dataBinding.setModel(mainViewModel);
+
 
 //        dataBinding.button.setOnClickListener(v -> {
 //            int PLACE_PICKER_REQUEST = 1;
@@ -77,7 +73,6 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
 //                e.printStackTrace();
 //            }
 //        });
-
 
 
         mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(Places.GEO_DATA_API).addApi
@@ -128,7 +123,7 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
 
     @Override
     protected void onDestroy() {
-//        mainViewModel.destroy();
+        mainViewModel.destroy();
         super.onDestroy();
     }
 
@@ -140,5 +135,10 @@ public class MainActivity extends RxAppCompatActivity implements GoogleApiClient
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         System.out.println("connectionResult = [" + connectionResult + "]");
+    }
+
+    @Override
+    public void change(boolean willSearchExpand) {
+        mainViewModel.change(dataBinding.recycler, willSearchExpand);
     }
 }

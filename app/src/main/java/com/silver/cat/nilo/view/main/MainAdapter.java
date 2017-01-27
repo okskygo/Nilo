@@ -1,6 +1,9 @@
-package com.silver.cat.nilo.view.main.model;
+package com.silver.cat.nilo.view.main;
 
 import com.silver.cat.nilo.R;
+import com.silver.cat.nilo.view.main.model.BannerViewModel;
+import com.silver.cat.nilo.view.main.model.LogoViewModel;
+import com.silver.cat.nilo.view.main.model.SearchViewModel;
 import com.silver.cat.nilo.widget.recycler.BaseAdapter;
 
 import java.util.ArrayList;
@@ -10,14 +13,14 @@ import java.util.List;
  * Created by xiezhenyu on 2017/1/18.
  */
 
-class MainAdapter extends BaseAdapter {
+public class MainAdapter extends BaseAdapter {
 
     private final List<Object> models = new ArrayList<>();
     private final List<BannerViewModel> bannerViewModels;
     private final SearchViewModel searchViewModel;
     private final LogoViewModel logoViewModel;
 
-    MainAdapter(SearchViewModel searchViewModel, LogoViewModel logoViewModel,
+    public MainAdapter(SearchViewModel searchViewModel, LogoViewModel logoViewModel,
                 List<BannerViewModel> bannerViewModels) {
         this.searchViewModel = searchViewModel;
         this.logoViewModel = logoViewModel;

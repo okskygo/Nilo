@@ -22,7 +22,6 @@ public class LogoViewModel implements ViewModel, Observer {
 
     }
 
-
     @Override
     public void destroy() {
 
