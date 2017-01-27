@@ -9,10 +9,9 @@ import android.view.inputmethod.InputMethodManager;
 import com.silver.cat.nilo.widget.model.ViewModel;
 import com.silver.cat.nilo.widget.view.KeyPreImeEditText;
 
-import java.util.Observable;
-import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
@@ -22,7 +21,7 @@ import io.reactivex.subjects.Subject;
  * Created by xiezhenyu on 2017/1/18.
  */
 
-public class SearchViewModel implements ViewModel, Observer {
+public class SearchViewModel implements ViewModel, java.util.Observer {
 
     public final ObservableInt editVisibility;
     public final ObservableInt textVisibility;
@@ -50,10 +49,22 @@ public class SearchViewModel implements ViewModel, Observer {
         this.disposable = searchSubject
                 .debounce(100, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(listener::change)
-                .delay(200, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(this::toggleSoftKeyboard)
+                .flatMap(willSearchExpand -> {
+                    Observable<Boolean> observable = Observable.just(willSearchExpand);
+                    if (willSearchExpand) {
+                        return observable
+                                .doOnNext(listener::change)
+                                .delay(200, TimeUnit.MILLISECONDS)
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnNext(this::toggleSoftKeyboard);
+                    } else {
+                        return observable
+                                .doOnNext(this::toggleSoftKeyboard)
+                                .delay(200, TimeUnit.MILLISECONDS)
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .doOnNext(listener::change);
+                    }
+                })
                 .subscribe();
     }
 
@@ -80,7 +91,7 @@ public class SearchViewModel implements ViewModel, Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(java.util.Observable o, Object arg) {
         if (!(arg instanceof Boolean)) {
             return;
         }
