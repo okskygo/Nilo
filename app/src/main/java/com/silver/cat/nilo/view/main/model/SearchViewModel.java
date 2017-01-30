@@ -9,11 +9,14 @@ import android.view.inputmethod.InputMethodManager;
 import com.silver.cat.nilo.widget.model.ViewModel;
 import com.silver.cat.nilo.widget.view.KeyPreImeEditText;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -25,9 +28,8 @@ public class SearchViewModel implements ViewModel, java.util.Observer {
 
     public final ObservableInt editVisibility;
     public final ObservableInt textVisibility;
-    private final Subject<Boolean> searchSubject = PublishSubject.create();
-    private final Disposable disposable;
     private final Context context;
+    private Subject<Boolean> searchSubject = PublishSubject.create();
     private boolean searchExpand;
     public final KeyPreImeEditText.OnKeyPreImgListener onKeyPreImgListener = new KeyPreImeEditText
             .OnKeyPreImgListener() {
@@ -46,11 +48,11 @@ public class SearchViewModel implements ViewModel, java.util.Observer {
         this.context = context;
         this.editVisibility = new ObservableInt(View.GONE);
         this.textVisibility = new ObservableInt(View.VISIBLE);
-        this.disposable = searchSubject
+        searchSubject.toFlowable(BackpressureStrategy.DROP)
                 .debounce(100, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(willSearchExpand -> {
-                    Observable<Boolean> observable = Observable.just(willSearchExpand);
+                    Flowable<Boolean> observable = Flowable.just(willSearchExpand);
                     if (willSearchExpand) {
                         return observable
                                 .doOnNext(listener::change)
@@ -65,7 +67,29 @@ public class SearchViewModel implements ViewModel, java.util.Observer {
                                 .doOnNext(listener::change);
                     }
                 })
-                .subscribe();
+                .subscribe(new Subscriber<Boolean>() {
+                    Subscription subscription;
+                    @Override
+                    public void onSubscribe(Subscription subscription) {
+                        this.subscription = subscription;
+                        subscription.request(1);
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        subscription.request(1);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     public void onSearchClick(View view) {
@@ -87,7 +111,7 @@ public class SearchViewModel implements ViewModel, java.util.Observer {
 
     @Override
     public void destroy() {
-        disposable.dispose();
+        searchSubject = null;
     }
 
     @Override
