@@ -6,9 +6,12 @@ import android.databinding.ObservableInt;
 import android.support.transition.TransitionManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.android.annotations.NonNull;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.AutocompletePrediction;
 import com.silver.cat.nilo.R;
 import com.silver.cat.nilo.view.main.MainAdapter;
 import com.silver.cat.nilo.widget.model.ViewModel;
@@ -23,23 +26,25 @@ import java.util.List;
 
 public class MainViewModel extends java.util.Observable implements ViewModel {
 
+
     public final ObservableInt backgroundColor;
     public final MainAdapter adapter;
     public final PredictiveLinearLayoutManager layoutManager;
     private final SearchViewModel searchViewModel;
     private final LogoViewModel logoViewModel;
     private final List<BannerViewModel> bannerViewModels;
+    private final List<AutocompletePrediction> suggestions = new ArrayList<>();
     private Context context;
     private int lastOffset;
 
 
     public MainViewModel(@NonNull Context context, SearchViewModel.OnSearchStatusChangeListener
-            listener) {
+            listener, TextWatcher textWatcher) {
         this.context = context;
         this.backgroundColor = new ObservableInt(ContextCompat.getColor(context, R.color
                 .defaultBackground));
 
-        this.searchViewModel = new SearchViewModel(context, listener);
+        this.searchViewModel = new SearchViewModel(context, listener, textWatcher, suggestions);
         this.logoViewModel = new LogoViewModel();
         this.bannerViewModels = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
@@ -93,6 +98,19 @@ public class MainViewModel extends java.util.Observable implements ViewModel {
 
         recyclerView.setBackgroundColor(ContextCompat.getColor(context, willSearchExpand ? R
                 .color.dialogShadow : R.color.defaultBackground));
+    }
+
+    public void updateSuggestion(List<AutocompletePrediction> list){
+        suggestions.clear();
+        suggestions.addAll(list);
+        setChanged();
+        notifyObservers(suggestions);
+    }
+
+    public void clearSuggestion(){
+        suggestions.clear();
+        setChanged();
+        notifyObservers(suggestions);
     }
 
 

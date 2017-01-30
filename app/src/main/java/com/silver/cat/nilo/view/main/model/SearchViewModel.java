@@ -1,17 +1,23 @@
 package com.silver.cat.nilo.view.main.model;
 
 import android.content.Context;
+import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.google.android.gms.location.places.AutocompletePrediction;
 import com.silver.cat.nilo.widget.model.ViewModel;
 import com.silver.cat.nilo.widget.view.KeyPreImeEditText;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
@@ -28,24 +34,32 @@ public class SearchViewModel implements ViewModel, java.util.Observer {
 
     public final ObservableInt editVisibility;
     public final ObservableInt textVisibility;
+    public final TextWatcher textWatcher;
+    public final ObservableField<List<AutocompletePrediction>> suggestions;
     private final Context context;
     private Subject<Boolean> searchSubject = PublishSubject.create();
     private boolean searchExpand;
-    public final KeyPreImeEditText.OnKeyPreImgListener onKeyPreImgListener = new KeyPreImeEditText
-            .OnKeyPreImgListener() {
+    public final KeyPreImeEditText.OnKeyPreImgListener onKeyPreImgListener = new
+            KeyPreImeEditText
+                    .OnKeyPreImgListener() {
 
-        @Override
-        public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-                searchExpand = false;
-                searchSubject.onNext(false);
-            }
-            return true;
-        }
-    };
+                @Override
+                public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent
+                            .ACTION_DOWN) {
+                        searchExpand = false;
+                        searchSubject.onNext(false);
+                    }
+                    return true;
+                }
+            };
 
-    public SearchViewModel(Context context, OnSearchStatusChangeListener listener) {
+
+    public SearchViewModel(Context context, OnSearchStatusChangeListener listener,
+                           TextWatcher textWatcher, List<AutocompletePrediction> suggestions) {
         this.context = context;
+        this.textWatcher = textWatcher;
+        this.suggestions = new ObservableField(Collections.EMPTY_LIST);
         this.editVisibility = new ObservableInt(View.GONE);
         this.textVisibility = new ObservableInt(View.VISIBLE);
         searchSubject.toFlowable(BackpressureStrategy.DROP)
@@ -69,6 +83,7 @@ public class SearchViewModel implements ViewModel, java.util.Observer {
                 })
                 .subscribe(new Subscriber<Boolean>() {
                     Subscription subscription;
+
                     @Override
                     public void onSubscribe(Subscription subscription) {
                         this.subscription = subscription;
@@ -90,6 +105,7 @@ public class SearchViewModel implements ViewModel, java.util.Observer {
 
                     }
                 });
+
     }
 
     public void onSearchClick(View view) {
@@ -116,12 +132,14 @@ public class SearchViewModel implements ViewModel, java.util.Observer {
 
     @Override
     public void update(java.util.Observable o, Object arg) {
-        if (!(arg instanceof Boolean)) {
-            return;
+        if (arg instanceof Boolean) {
+            boolean willSearchExpand = ((Boolean) arg);
+            editVisibility.set(willSearchExpand ? View.VISIBLE : View.GONE);
+            textVisibility.set(willSearchExpand ? View.GONE : View.VISIBLE);
+        } else if(arg instanceof List){
+            suggestions.set((List) arg);
+            suggestions.notifyChange();
         }
-        boolean willSearchExpand = ((Boolean) arg);
-        editVisibility.set(willSearchExpand ? View.VISIBLE : View.GONE);
-        textVisibility.set(willSearchExpand ? View.GONE : View.VISIBLE);
     }
 
     /**

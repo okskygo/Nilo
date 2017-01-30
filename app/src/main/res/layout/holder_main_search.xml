@@ -20,59 +20,75 @@
         android:onClick="@{model.onSearchClick}"
         >
 
-        <LinearLayout
-            android:id="@+id/edit_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            android:visibility="@{model.editVisibility}"
-            >
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_android_black_24dp"
-                />
-
-            <com.silver.cat.nilo.widget.view.KeyPreImeEditText
-                android:id="@+id/edit"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/edit_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:hint="@string/main_search_hint"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:visibility="@{model.editVisibility}"
+                >
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_android_black_24dp"
+                    />
+
+
+                <com.silver.cat.nilo.widget.view.KeyPreImeEditText
+                    android:id="@+id/edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/main_search_hint"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:addTextChangedListener="@{model.textWatcher}"
+                    app:onKeyPreImgListener="@{model.onKeyPreImgListener}"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_settings_voice_24dp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="false"
+                android:drawableRight="@drawable/ic_settings_voice_24dp"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:text="@string/main_search_hint"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:setOnKeyPreImgListener="@{model.onKeyPreImgListener}"
+                android:textColor="?android:textColorSecondary"
+                android:visibility="@{model.textVisibility}"
                 />
 
-            <ImageView
+            <com.silver.cat.nilo.widget.view.SuggestionLinearLayout
+                android:id="@+id/suggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_settings_voice_24dp"
-                />
+                android:layout_below="@+id/edit_layout"
+                android:orientation="vertical"
+                app:bindSuggestion="@{model.suggestions}"
+                >
 
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="false"
-            android:drawableRight="@drawable/ic_settings_voice_24dp"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:text="@string/main_search_hint"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="?android:textColorSecondary"
-            android:visibility="@{model.textVisibility}"
-            />
-
+            </com.silver.cat.nilo.widget.view.SuggestionLinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 </layout>
