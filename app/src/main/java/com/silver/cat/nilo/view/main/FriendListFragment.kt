@@ -1,11 +1,16 @@
 package com.silver.cat.nilo.view.main
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.liquable.curry.util.view.inflate
 import com.silver.cat.nilo.R
+import com.silver.cat.nilo.util.view.DividerItemDecoration
 import com.silver.cat.nilo.view.BaseFragment
+import kotlinx.android.synthetic.main.fragment_friend_list.*
 
 /**
  * Created by xiezhenyu on 2017/5/11.
@@ -18,10 +23,36 @@ class FriendListFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        with(recyclerView) {
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.Type.BOTTOM))
+            layoutManager = LinearLayoutManager(context)
+            adapter = FriendListAdapter()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
+}
+
+class FriendListAdapter : RecyclerView.Adapter<FriendListViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendListViewHolder {
+        return FriendListViewHolder(parent)
+    }
+
+    override fun onBindViewHolder(holder: FriendListViewHolder, position: Int) {
+        holder.bind()
+    }
+
+    override fun getItemCount(): Int {
+        return 30
+    }
+}
+
+class FriendListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.holder_friend_list)) {
+
+    fun bind() {
+
     }
 }

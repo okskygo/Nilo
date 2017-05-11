@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="dialogShadow">#CC000000</color>
     <color name="defaultBackground">#FFFAFAFA</color>
+    <color name="colorWireFrame">#757575</color>
 </resources>
