@@ -1,6 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
-
 
 configurations.all {
     resolutionStrategy.force "com.google.code.findbugs:jsr305:3.0.1"
@@ -23,16 +21,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
-retrolambda {
-    jvmArgs '-noverify'
-}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
