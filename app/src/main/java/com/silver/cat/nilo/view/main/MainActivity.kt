@@ -17,8 +17,15 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupToolbar()
         setupViewPager()
         setupBottomNavigationView()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar)
+        val actionBar = supportActionBar ?: return
+        actionBar.setTitle(R.string.app_name)
     }
 
     private fun setupViewPager() {
@@ -50,7 +57,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun setupBottomNavigationView(){
+    private fun setupBottomNavigationView() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
 
             when (item.itemId) {
