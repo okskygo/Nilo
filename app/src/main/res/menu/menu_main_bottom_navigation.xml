@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_bottom_navigation_friend_list"
+        android:enabled="true"
+        android:icon="@drawable/ic_person_pin_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/main_bottom_navigation_friend_list"/>
+    <item
+        android:id="@+id/main_bottom_navigation_chat"
+        android:enabled="true"
+        android:icon="@drawable/ic_chat_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/main_bottom_navigation_chat"/>
+    <item
+        android:id="@+id/main_bottom_navigation_setting"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings_white_24dp"
+        app:showAsAction="ifRoom"
+        android:title="@string/main_bottom_navigation_setting"/>
+
+</menu>
