@@ -26,11 +26,6 @@
         </activity>
 
         <activity
-            android:name=".util.permission.PermissionHolderActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.Transparent"/>
-
-        <activity
             android:name=".view.search.SearchActivity"
             android:theme="@style/AppTheme.Dialog"/>
 
