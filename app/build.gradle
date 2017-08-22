@@ -22,6 +22,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [googleApiKey: "$niloApiKey"]
+            buildConfigField 'String', 'googleApiKey', '"' + niloApiKey + '"'
+        }
+
+        debug{
+            manifestPlaceholders = [googleApiKey: "$niloApiKey"]
+            buildConfigField 'String', 'googleApiKey', '"' + niloApiKey + '"'
         }
     }
 }
