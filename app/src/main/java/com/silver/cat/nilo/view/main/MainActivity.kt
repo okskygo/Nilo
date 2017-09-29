@@ -13,93 +13,92 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
 
-        setupToolbar()
-        setupViewPager()
-        setupBottomNavigationView()
-    }
+    setupToolbar()
+    setupViewPager()
+    setupBottomNavigationView()
+  }
 
-    private fun setupToolbar() {
-        setSupportActionBar(toolbar)
-        val actionBar = supportActionBar ?: return
-        actionBar.setTitle(R.string.app_name)
-    }
+  private fun setupToolbar() {
+    setSupportActionBar(toolbar)
+    val actionBar = supportActionBar ?: return
+    actionBar.setTitle(R.string.app_name)
+  }
 
-    private fun setupViewPager() {
-        with(viewPager) {
-            adapter = MainViewPagerAdapter(supportFragmentManager)
-            addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+  private fun setupViewPager() {
+    with(viewPager) {
+      adapter = MainViewPagerAdapter(supportFragmentManager)
+      addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
-                var prevMenuItem: MenuItem? = null
+        var prevMenuItem: MenuItem? = null
 
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        override fun onPageScrolled(position: Int,
+                                    positionOffset: Float,
+                                    positionOffsetPixels: Int) {
 
-                }
-
-                override fun onPageSelected(position: Int) {
-                    if (prevMenuItem != null) {
-                        prevMenuItem?.isChecked = false
-                    } else {
-                        bottomNavigationView.menu.getItem(0).isChecked = false
-                    }
-
-                    bottomNavigationView.menu.getItem(position).isChecked = true
-                    prevMenuItem = bottomNavigationView.menu.getItem(position)
-                }
-
-                override fun onPageScrollStateChanged(state: Int) {
-
-                }
-            })
         }
-    }
 
-    private fun setupBottomNavigationView() {
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+        override fun onPageSelected(position: Int) {
+          if (prevMenuItem != null) {
+            prevMenuItem?.isChecked = false
+          } else {
+            bottomNavigationView.menu.getItem(0).isChecked = false
+          }
 
-            when (item.itemId) {
-                R.id.main_bottom_navigation_friend_list -> {
-                    viewPager.setCurrentItem(MainViewFragmentEnum.FRIEND_LIST.ordinal, true)
-                }
-                R.id.main_bottom_navigation_chat -> {
-                    viewPager.setCurrentItem(MainViewFragmentEnum.CHAT.ordinal, true)
-
-                }
-                R.id.main_bottom_navigation_setting -> {
-                    viewPager.setCurrentItem(MainViewFragmentEnum.SETTING.ordinal, true)
-                }
-            }
-            return@setOnNavigationItemSelectedListener true
+          bottomNavigationView.menu.getItem(position).isChecked = true
+          prevMenuItem = bottomNavigationView.menu.getItem(position)
         }
+
+        override fun onPageScrollStateChanged(state: Int) {
+
+        }
+      })
     }
+  }
+
+  private fun setupBottomNavigationView() {
+    bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+      when (item.itemId) {
+        R.id.main_bottom_navigation_friend_list -> {
+          viewPager.setCurrentItem(MainTab.FRIEND_LIST.ordinal, true)
+        }
+        R.id.main_bottom_navigation_chat -> {
+          viewPager.setCurrentItem(MainTab.CHAT.ordinal, true)
+
+        }
+        R.id.main_bottom_navigation_setting -> {
+          viewPager.setCurrentItem(MainTab.SETTING.ordinal, true)
+        }
+      }
+      true
+    }
+  }
 
 }
 
-enum class MainViewFragmentEnum {
-    FRIEND_LIST, CHAT, SETTING;
+enum class MainTab(val fragmentClazz: Class<out Fragment>) {
+  FRIEND_LIST(FriendListFragment::class.java), CHAT(ChatFragment::class.java), SETTING(
+      SettingFragment::class.java);
 
-    companion object {
-        fun getFragment(enum: MainViewFragmentEnum): Fragment =
-                when (enum) {
-                    FRIEND_LIST -> FriendListFragment()
-                    CHAT -> ChatFragment()
-                    SETTING -> SettingFragment()
-                }
+  companion object {
+    fun getAvailable(): List<MainTab> {
+      return arrayListOf(FRIEND_LIST, CHAT, SETTING)
     }
+  }
 
 
 }
 
 class MainViewPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
-    override fun getCount(): Int {
-        return MainViewFragmentEnum.values().size
-    }
+  override fun getCount(): Int {
+    return MainTab.getAvailable().size
+  }
 
-    override fun getItem(position: Int): Fragment {
-        return MainViewFragmentEnum.getFragment(MainViewFragmentEnum.values()[position])
-    }
+  override fun getItem(position: Int): Fragment {
+    return MainTab.getAvailable()[position].fragmentClazz.newInstance()
+  }
 
 }

@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="primaryColor">#66bb6a</color>
+    <color name="primaryLightColor">#98ee99</color>
+    <color name="primaryDarkColor">#338a3e</color>
+    <color name="secondaryColor">#ffb74d</color>
+    <color name="secondaryLightColor">#ffe97d</color>
+    <color name="secondaryDarkColor">#c88719</color>
+    <color name="primaryTextColor">#fff8e1</color>
+    <color name="secondaryTextColor">#f5f5f5</color>
+    <color name="colorAccent">#ffb74d</color>
+    <color name="colorAccentLight">#ffe97d</color>
+    <color name="colorAccentDark">#c88719</color>
+
     <color name="dialogShadow">#CC000000</color>
     <color name="defaultBackground">#FFFAFAFA</color>
-    <color name="colorWireFrame">#757575</color>
+    <color name="colorWireFrame">#8c8c8c</color>
+    <color name="shimmer_color">#a2cccccc</color>
 </resources>

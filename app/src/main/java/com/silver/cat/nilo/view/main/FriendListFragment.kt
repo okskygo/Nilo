@@ -11,6 +11,7 @@ import com.silver.cat.nilo.R
 import com.silver.cat.nilo.util.view.DividerItemDecoration
 import com.silver.cat.nilo.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_friend_list.*
+import kotlinx.android.synthetic.main.holder_friend_wireframe.view.*
 
 /**
  * Created by xiezhenyu on 2017/5/11.
@@ -18,41 +19,45 @@ import kotlinx.android.synthetic.main.fragment_friend_list.*
 
 class FriendListFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_friend_list, container, false)
-    }
+  override fun onCreateView(inflater: LayoutInflater,
+                            container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
+    return inflater.inflate(R.layout.fragment_friend_list, container, false)
+  }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        with(recyclerView) {
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.Type.BOTTOM))
-            layoutManager = LinearLayoutManager(context)
-            adapter = FriendListAdapter()
-        }
+  override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    with(recyclerView) {
+      addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.Type.BOTTOM))
+      layoutManager = LinearLayoutManager(context)
+      adapter = FriendWireframeAdapter()
     }
+  }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
 }
 
-class FriendListAdapter : RecyclerView.Adapter<FriendListViewHolder>() {
+class FriendWireframeAdapter : RecyclerView.Adapter<FriendListViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendListViewHolder {
-        return FriendListViewHolder(parent)
-    }
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendListViewHolder {
+    return FriendListViewHolder(parent)
+  }
 
-    override fun onBindViewHolder(holder: FriendListViewHolder, position: Int) {
-        holder.bind()
-    }
+  override fun onBindViewHolder(holder: FriendListViewHolder, position: Int) {
+//    holder.bind()
+  }
 
-    override fun getItemCount(): Int {
-        return 30
-    }
+  override fun onViewAttachedToWindow(holder: FriendListViewHolder) {
+    holder.bind()
+  }
+
+  override fun getItemCount(): Int {
+    return 8
+  }
 }
 
-class FriendListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.holder_friend_list)) {
+class FriendListViewHolder(parent: ViewGroup)
+  : RecyclerView.ViewHolder(parent.inflate(R.layout.holder_friend_wireframe)) {
 
-    fun bind() {
-
-    }
+  fun bind() {
+    itemView.shimmerLayout.startShimmerAnimation()
+  }
 }
