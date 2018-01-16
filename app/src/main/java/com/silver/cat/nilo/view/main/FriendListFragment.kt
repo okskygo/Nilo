@@ -53,7 +53,11 @@ class FriendWireframeAdapter : RecyclerView.Adapter<FriendListViewHolder>() {
 class FriendListViewHolder(parent: ViewGroup)
     : RecyclerView.ViewHolder(parent.inflate(R.layout.holder_friend_wireframe)) {
 
-    fun bind() {
-        itemView.shimmerLayout.startShimmerAnimation()
+    init {
+        itemView.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            itemView.shimmerLayout.startShimmerAnimation()
+        }
     }
+
+    fun bind() {}
 }
