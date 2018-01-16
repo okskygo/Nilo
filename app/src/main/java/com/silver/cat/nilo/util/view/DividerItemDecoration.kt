@@ -20,13 +20,13 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
     private var type: Type
     private var needlessDividers = 1
 
-    constructor(context: Context, type: Type) {
-        mDivider = ContextCompat.getDrawable(context, R.drawable.shape_recycler_divider)
+    constructor(context: Context?, type: Type) {
+        mDivider = context?.let { ContextCompat.getDrawable(it, R.drawable.shape_recycler_divider) }
         this.type = type
     }
 
-    constructor(context: Context, type: Type, needlessDividers: Int) {
-        mDivider = ContextCompat.getDrawable(context, R.drawable.shape_recycler_divider)
+    constructor(context: Context?, type: Type, needlessDividers: Int) {
+        mDivider = context?.let { ContextCompat.getDrawable(it, R.drawable.shape_recycler_divider) }
         this.type = type
         this.needlessDividers = needlessDividers
     }

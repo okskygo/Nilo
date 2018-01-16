@@ -29,6 +29,8 @@
             android:name=".view.search.SearchActivity"
             android:theme="@style/AppTheme.Dialog"/>
 
+        <activity android:name=".view.main.chat.ChatActivity"/>
+
     </application>
 
 </manifest>
