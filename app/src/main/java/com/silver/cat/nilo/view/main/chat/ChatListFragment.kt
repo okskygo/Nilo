@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.view.main.friend
+package com.silver.cat.nilo.view.main.chat
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.silver.cat.nilo.view.BaseFragment
  * Created by xiezhenyu on 2017/5/11.
  */
 
-class ChatFragment : BaseFragment() {
+class ChatListFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_chat, container, false)

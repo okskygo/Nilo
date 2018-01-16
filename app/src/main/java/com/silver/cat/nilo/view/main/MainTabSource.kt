@@ -2,8 +2,8 @@ package com.silver.cat.nilo.view.main
 
 import com.silver.cat.nilo.R
 import com.silver.cat.nilo.util.view.tab.TabSource
-import com.silver.cat.nilo.view.main.chat.FriendListFragment
-import com.silver.cat.nilo.view.main.friend.ChatFragment
+import com.silver.cat.nilo.view.main.friend.FriendListFragment
+import com.silver.cat.nilo.view.main.chat.ChatListFragment
 import com.silver.cat.nilo.view.main.settting.SettingFragment
 
 /**
@@ -21,7 +21,7 @@ class MainFriendTabSource : MainTabSource() {
 class MainChatTabSource : MainTabSource() {
     override val icon = R.drawable.ic_chat_white_24dp
     override val title = 0
-    override val fragmentClass = ChatFragment::class.java
+    override val fragmentClass = ChatListFragment::class.java
 }
 
 class MainSettingTabSource : MainTabSource() {
