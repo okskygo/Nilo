@@ -12,7 +12,10 @@
         <item name="colorControlHighlight">@color/secondaryLightColor</item>
         <item name="android:textColorSecondary">@color/secondaryTextColor</item>
         <item name="android:textColor">@color/primaryTextColor</item>
-
+        <item name="android:imageButtonStyle">@style/NiloImageButtonStyle</item>
+        <item name="imageButtonStyle">@style/NiloImageButtonStyle</item>
+        <item name="android:editTextStyle">@style/NiloEditTextStyle</item>
+        <item name="editTextStyle">@style/NiloEditTextStyle</item>
     </style>
 
     <style name="Theme.Transparent" parent="android:Theme">
@@ -24,12 +27,14 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="AppTheme.Dialog" >
+    <style name="AppTheme.Dialog">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/dialogShadow</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="ToolbarTheme" parent="Theme.AppCompat.NoActionBar"/>
+    <style name="ToolbarTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlNormal">#fff</item>
+    </style>
 </resources>

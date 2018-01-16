@@ -4,6 +4,7 @@
     <color name="primaryColor">#66bb6a</color>
     <color name="primaryLightColor">#98ee99</color>
     <color name="primaryDarkColor">#338a3e</color>
+    <color name="primaryWhiteColor">#eff8f0</color>
     <color name="secondaryColor">#ffb74d</color>
     <color name="secondaryLightColor">#ffe97d</color>
     <color name="secondaryDarkColor">#c88719</color>

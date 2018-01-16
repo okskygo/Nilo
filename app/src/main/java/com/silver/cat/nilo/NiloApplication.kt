@@ -1,10 +1,8 @@
 package com.silver.cat.nilo
 
 import android.app.Application
-
 import com.silver.cat.nilo.config.dagger.DaggerNiloComponent
 import com.silver.cat.nilo.config.dagger.NiloComponent
-import com.silver.cat.nilo.config.dagger.NiloModule
 
 /**
  * Created by xiezhenyu on 2017/1/17.
@@ -12,13 +10,13 @@ import com.silver.cat.nilo.config.dagger.NiloModule
 
 class NiloApplication : Application() {
 
-    lateinit var component: NiloComponent
+  lateinit var component: NiloComponent
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        component = DaggerNiloComponent.builder().build()
-        component.inject(this)
+    component = DaggerNiloComponent.builder().build()
+    component.inject(this)
 
-    }
+  }
 }
