@@ -8,12 +8,12 @@ configurations.all {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.silver.cat.nilo"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 14
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -44,18 +44,18 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:1.1.4-2"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.10"
 
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:cardview-v7:27.0.2'
+    compile 'com.android.support:design:27.0.2'
 
     //rxjava
     compile "io.reactivex.rxjava2:rxandroid:2.0.1"
-    compile "io.reactivex.rxjava2:rxjava:2.0.1"
+    compile "io.reactivex.rxjava2:rxjava:2.0.4"
 
     //retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 //    compile 'com.squareup.retrofit2:converter-jackson:2.1.0'
 

@@ -17,7 +17,7 @@ class SettingFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_setting, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
 

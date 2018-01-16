@@ -10,16 +10,13 @@ import android.view.View
 
 import com.silver.cat.nilo.R
 
-/**
- * Created by liq on 4/6/16.
- */
 class DividerItemDecoration : RecyclerView.ItemDecoration {
 
     enum class Type {
         TOP, BOTTOM, BOTH
     }
 
-    private var mDivider: Drawable
+    private var mDivider: Drawable?
     private var type: Type
     private var needlessDividers = 1
 
@@ -42,7 +39,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
         if (childCount == 0) {
             return
         }
-        for (i in 0..childCount - needlessDividers - 1) {
+        for (i in 0 until childCount - needlessDividers) {
             val child = parent.getChildAt(i) ?: return
             val params = child.layoutParams as RecyclerView.LayoutParams
             if (type == Type.TOP || type == Type.BOTH) {
@@ -59,6 +56,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
                                paddingRight: Int,
                                child: View,
                                params: RecyclerView.LayoutParams) {
+        val mDivider = mDivider ?: return
         val top = child.bottom
         val bottom = top + mDivider.intrinsicHeight
         val left = paddingLeft + params.leftMargin
@@ -73,6 +71,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
                             paddingRight: Int,
                             child: View,
                             params: RecyclerView.LayoutParams) {
+        val mDivider = mDivider ?: return
         val bottom = child.top
         val top = bottom - mDivider.intrinsicHeight
         val left = paddingLeft + params.leftMargin
@@ -96,11 +95,11 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
     }
 
     private fun rectAppendDividerBottomHeight(outRect: Rect) {
-        outRect.bottom = mDivider.intrinsicHeight
+        outRect.bottom = mDivider?.intrinsicHeight ?: 0
     }
 
     private fun rectAppendDividerTopHeight(outRect: Rect) {
-        outRect.top = mDivider.intrinsicHeight
+        outRect.top = mDivider?.intrinsicHeight ?: 0
     }
 
 }
