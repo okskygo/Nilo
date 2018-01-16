@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.view.main
+package com.silver.cat.nilo.view.main.chat
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
