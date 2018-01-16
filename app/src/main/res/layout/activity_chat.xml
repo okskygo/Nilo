@@ -7,6 +7,7 @@
 >
 
     <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -20,7 +21,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.silver.cat.nilo.view.main.chat.ChatInputLayout
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/appBarLayout"
+            android:layout_above="@+id/chatInputLayout"
+            android:clipToPadding="false"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+    />
+
+    <com.silver.cat.nilo.view.main.chat.ChatInputBar
             android:id="@+id/chatInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -33,6 +33,9 @@
             android:layout_marginBottom="6dp"
             android:textSize="14sp"
             android:background="@drawable/shape_chat_input"
+            android:imeOptions="actionDone"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             tools:text="111rrsrsrer"
     />
 

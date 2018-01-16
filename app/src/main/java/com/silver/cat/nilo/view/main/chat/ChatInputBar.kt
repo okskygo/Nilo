@@ -10,13 +10,13 @@ import com.silver.cat.nilo.R
  * Created by Rex on 2018/1/16.
  */
 
-class ChatInputLayout @JvmOverloads constructor(context: Context,
-                                                attrs: AttributeSet? = null,
-                                                defStyleAttr: Int = 0)
+class ChatInputBar @JvmOverloads constructor(context: Context,
+                                             attrs: AttributeSet? = null,
+                                             defStyleAttr: Int = 0)
   : RelativeLayout(context, attrs, defStyleAttr) {
 
   init {
-    LayoutInflater.from(context).inflate(R.layout.layout_chat_input, this)
+    LayoutInflater.from(context).inflate(R.layout.layout_chat_bar, this)
   }
 
 }
