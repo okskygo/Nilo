@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.view.main.settting
+package com.silver.cat.nilo.view.settting
 
 import android.os.Bundle
 import android.view.LayoutInflater

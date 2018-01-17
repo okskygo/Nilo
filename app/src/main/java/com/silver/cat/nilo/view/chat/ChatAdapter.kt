@@ -1,10 +1,7 @@
-package com.silver.cat.nilo.view.main.chat
+package com.silver.cat.nilo.view.chat
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.silver.cat.nilo.view.main.chat.holder.MessageViewHolder
-import com.silver.cat.nilo.view.main.chat.holder.OtherTextMessageViewHolder
-import com.silver.cat.nilo.view.main.chat.holder.SelfTextMessageViewHolder
 
 /**
  * Created by Rex on 2018/1/16.
@@ -16,8 +13,10 @@ class ChatAdapter : RecyclerView.Adapter<MessageViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
     return when (viewType) {
-      SELF_MESSAGE -> SelfTextMessageViewHolder(parent)
-      OTHER_MESSAGE -> OtherTextMessageViewHolder(parent)
+      SELF_MESSAGE -> SelfTextMessageViewHolder(
+          parent)
+      OTHER_MESSAGE -> OtherTextMessageViewHolder(
+          parent)
       else -> throw IllegalArgumentException()
     }
   }

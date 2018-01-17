@@ -30,7 +30,7 @@
                 android:theme="@style/AppTheme.Dialog" />
 
         <activity
-                android:name=".view.main.chat.ChatActivity"
+                android:name=".view.chat.ChatActivity"
                 android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
         />
 

@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.view.main.friend
+package com.silver.cat.nilo.view.friend
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager

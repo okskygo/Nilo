@@ -2,9 +2,9 @@ package com.silver.cat.nilo.view.main
 
 import com.silver.cat.nilo.R
 import com.silver.cat.nilo.util.view.tab.TabSource
-import com.silver.cat.nilo.view.main.friend.FriendListFragment
-import com.silver.cat.nilo.view.main.chat.ChatListFragment
-import com.silver.cat.nilo.view.main.settting.SettingFragment
+import com.silver.cat.nilo.view.friend.FriendListFragment
+import com.silver.cat.nilo.view.chat.ChatListFragment
+import com.silver.cat.nilo.view.settting.SettingFragment
 
 /**
  * Created by Rex on 2018/1/16.

@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.view.main.chat
+package com.silver.cat.nilo.view.chat
 
 /**
  * Created by Rex on 2018/1/16.

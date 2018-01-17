@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.view.main.chat
+package com.silver.cat.nilo.view.chat
 
 import android.content.Context
 import android.os.Bundle
