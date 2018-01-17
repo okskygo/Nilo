@@ -30,7 +30,7 @@ class ChatActivity : BaseActivity() {
   }
 
   private fun setupRecyclerView() {
-    recyclerView.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
+    recyclerView.layoutManager = LinearLayoutManager(this).apply { reverseLayout = true }
     recyclerView.adapter = adapter
   }
 
@@ -56,8 +56,8 @@ class ChatActivity : BaseActivity() {
           }
           editText.setText("")
           adapter.addMessage(SelfTextMessageDto(content = text.toString()))
-          adapter.notifyItemInserted(adapter.itemCount - 1)
-          recyclerView.smoothScrollToPosition(adapter.itemCount - 1)
+          adapter.notifyItemInserted(0)
+          recyclerView.smoothScrollToPosition(0)
         }
   }
 

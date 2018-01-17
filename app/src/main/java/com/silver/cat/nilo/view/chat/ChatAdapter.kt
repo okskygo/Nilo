@@ -35,11 +35,11 @@ class ChatAdapter : RecyclerView.Adapter<MessageViewHolder>() {
   }
 
   fun addMessages(messages: List<MessageDto>) {
-    this.messages.addAll(messages)
+    this.messages.addAll(0, messages)
   }
 
   fun addMessage(message: MessageDto) {
-    this.messages.add(message)
+    this.messages.add(0, message)
   }
 
   companion object {
