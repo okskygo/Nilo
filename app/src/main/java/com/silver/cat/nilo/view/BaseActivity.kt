@@ -1,5 +1,6 @@
 package com.silver.cat.nilo.view
 
+import android.os.Bundle
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 
 /**
@@ -7,5 +8,13 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
  */
 
 abstract class BaseActivity : RxAppCompatActivity() {
-    //maybe future useful
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+  }
+
+  override fun onResume() {
+    super.onResume()
+  }
+
 }
