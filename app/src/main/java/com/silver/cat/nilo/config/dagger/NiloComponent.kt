@@ -1,10 +1,9 @@
 package com.silver.cat.nilo.config.dagger
 
+import android.app.Application
 import com.silver.cat.nilo.NiloApplication
-import com.silver.cat.nilo.config.dagger.activity.ActivityModule
-import com.silver.cat.nilo.config.dagger.activity.ActivitySubComponent
-import com.silver.cat.nilo.service.NiloFirebaseInstanceIDService
-import com.silver.cat.nilo.view.main.MainActivity
+import com.silver.cat.nilo.config.dagger.module.*
+import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,11 +12,20 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(modules = arrayOf(NiloModule::class))
+@Component(modules = [
+  (AndroidInjectionModule::class),
+  (NiloModule::class),
+  (ActivityBuilderModule::class),
+  (ServiceBuilderModule::class),
+  (FragmentBuilderModule::class)
+])
 interface NiloComponent {
+  @Component.Builder
+  interface Builder {
+    @BindsInstance
+    fun application(application: Application): Builder
+    fun build(): NiloComponent
+  }
 
   fun inject(application: NiloApplication)
-  fun newActivitySubComponent(activityModule: ActivityModule): ActivitySubComponent
-  fun inject(application: NiloFirebaseInstanceIDService)
-  fun inject(mainActivity: MainActivity)
 }

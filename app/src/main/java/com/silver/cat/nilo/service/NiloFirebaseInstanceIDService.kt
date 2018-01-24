@@ -2,8 +2,8 @@ package com.silver.cat.nilo.service
 
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
-import com.silver.cat.nilo.NiloApplication
 import com.silver.cat.nilo.util.Pref
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 /**
@@ -15,8 +15,9 @@ class NiloFirebaseInstanceIDService : FirebaseInstanceIdService() {
   @Inject
   lateinit var pref: Pref
 
-  init {
-    NiloApplication.component.inject(this)
+  override fun onCreate() {
+    AndroidInjection.inject(this)
+    super.onCreate()
   }
 
   override fun onTokenRefresh() {
