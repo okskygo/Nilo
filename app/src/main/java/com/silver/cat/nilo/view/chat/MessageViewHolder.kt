@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.silver.cat.nilo.R
-import com.silver.cat.nilo.util.view.inflate
+import com.silver.cat.nilo.view.util.inflate
 import kotlinx.android.synthetic.main.holder_other_text_message.view.*
 import kotlinx.android.synthetic.main.holder_self_text_message.view.*
 

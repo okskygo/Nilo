@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.util.view.tab
+package com.silver.cat.nilo.view.widget.tab
 
 import android.content.Context
 import android.os.Bundle
@@ -16,13 +16,15 @@ class EasyTabLayout @JvmOverloads constructor(context: Context, attrs: Attribute
   : TabLayout(context, attrs) {
 
   fun <T : TabSource> setupWithViewPager(viewPager: ViewPager,
-                                         fragmentManager: FragmentManager,
-                                         factory: TabFactory<T>) {
+                                                                             fragmentManager: FragmentManager,
+                                                                             factory: TabFactory<T>) {
     clearOnTabSelectedListeners()
-    val tabPagerAdapter = TabPagerAdapter(fragmentManager, factory)
+    val tabPagerAdapter = TabPagerAdapter(fragmentManager,
+        factory)
     viewPager.adapter = tabPagerAdapter
     super.setupWithViewPager(viewPager)
-    addOnTabSelectedListener(ViewPagerOnTabSelectedListener(viewPager,
+    addOnTabSelectedListener(ViewPagerOnTabSelectedListener(
+        viewPager,
         tabPagerAdapter))
     tabPagerAdapter.initCustomTabs(this)
   }
@@ -46,7 +48,8 @@ class EasyTabLayout @JvmOverloads constructor(context: Context, attrs: Attribute
         .forEachIndexed { index, newTab ->
           addTab(newTab, index)
         }
-    addOnTabSelectedListener(OnTabSelectedListener(factory))
+    addOnTabSelectedListener(OnTabSelectedListener(
+        factory))
   }
 
   private class OnTabSelectedListener<T : TabSource>(val factory: TabFactory<T>)
@@ -66,7 +69,7 @@ class EasyTabLayout @JvmOverloads constructor(context: Context, attrs: Attribute
   }
 
   private class ViewPagerOnTabSelectedListener<T : TabSource>(viewPager: ViewPager,
-                                                              private val tabPagerAdapter: TabPagerAdapter<T>)
+                                                                                                  private val tabPagerAdapter: TabPagerAdapter<T>)
     : TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
     override fun onTabSelected(tab: Tab?) {
       super.onTabSelected(tab)
@@ -78,7 +81,7 @@ class EasyTabLayout @JvmOverloads constructor(context: Context, attrs: Attribute
 }
 
 abstract class TabFactory<T : TabSource>(open val available: List<T>,
-                                         open val bundle: Bundle? = null) {
+                                                                             open val bundle: Bundle? = null) {
 
   abstract fun onTabSelected(): Observable<T>
 
@@ -97,7 +100,7 @@ abstract class TabFactory<T : TabSource>(open val available: List<T>,
 }
 
 private class TTabFactory<T : TabSource> constructor(override val available: List<T>,
-                                                     override val bundle: Bundle? = null) : TabFactory<T>(
+                                                                                         override val bundle: Bundle? = null) : TabFactory<T>(
     available,
     bundle) {
 

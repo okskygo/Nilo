@@ -8,9 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.silver.cat.nilo.R
-import com.silver.cat.nilo.util.view.DividerItemDecoration
-import com.silver.cat.nilo.util.view.clickThrottleFirst
-import com.silver.cat.nilo.util.view.inflate
+import com.silver.cat.nilo.view.widget.decoration.DividerItemDecoration
+import com.silver.cat.nilo.view.util.clickThrottleFirst
+import com.silver.cat.nilo.view.util.inflate
 import com.silver.cat.nilo.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_chat_list.*
 
@@ -29,7 +29,9 @@ class ChatListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.Type.BOTTOM))
+        recyclerView.addItemDecoration(DividerItemDecoration(
+            context,
+            DividerItemDecoration.Type.BOTTOM))
         recyclerView.adapter = adapter
     }
 

@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.util.view;
+package com.silver.cat.nilo.view.widget.layout;
 
 import com.silver.cat.nilo.R;
 

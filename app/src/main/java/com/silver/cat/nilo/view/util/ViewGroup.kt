@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.util.view
+package com.silver.cat.nilo.view.util
 
 import android.view.LayoutInflater
 import android.view.View

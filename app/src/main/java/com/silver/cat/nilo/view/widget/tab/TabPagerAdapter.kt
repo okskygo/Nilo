@@ -1,4 +1,4 @@
-package com.silver.cat.nilo.util.view.tab
+package com.silver.cat.nilo.view.widget.tab
 
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment

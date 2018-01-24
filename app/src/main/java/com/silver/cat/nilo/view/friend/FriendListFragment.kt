@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.silver.cat.nilo.R
-import com.silver.cat.nilo.util.view.DividerItemDecoration
-import com.silver.cat.nilo.util.view.inflate
+import com.silver.cat.nilo.view.widget.decoration.DividerItemDecoration
+import com.silver.cat.nilo.view.util.inflate
 import com.silver.cat.nilo.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_friend_list.*
 import kotlinx.android.synthetic.main.holder_friend_wireframe.view.*
@@ -27,7 +27,9 @@ class FriendListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(recyclerView) {
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.Type.BOTTOM))
+            addItemDecoration(DividerItemDecoration(
+                context,
+                DividerItemDecoration.Type.BOTTOM))
             layoutManager = LinearLayoutManager(context)
             adapter = FriendWireframeAdapter()
         }

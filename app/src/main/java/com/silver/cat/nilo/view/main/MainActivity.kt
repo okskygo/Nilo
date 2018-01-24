@@ -3,7 +3,7 @@ package com.silver.cat.nilo.view.main
 import android.os.Bundle
 import com.silver.cat.nilo.NiloApplication
 import com.silver.cat.nilo.R
-import com.silver.cat.nilo.util.view.tab.TabFactory
+import com.silver.cat.nilo.view.widget.tab.TabFactory
 import com.silver.cat.nilo.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 

@@ -19,7 +19,7 @@
                 android:theme="@style/ToolbarTheme"
         />
 
-        <com.silver.cat.nilo.util.view.tab.EasyTabLayout
+        <com.silver.cat.nilo.view.widget.tab.EasyTabLayout
                 android:id="@+id/easyTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
