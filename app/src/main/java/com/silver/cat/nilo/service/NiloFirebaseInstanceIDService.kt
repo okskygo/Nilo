@@ -2,7 +2,7 @@ package com.silver.cat.nilo.service
 
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.iid.FirebaseInstanceIdService
-import com.silver.cat.nilo.util.Pref
+import com.silver.cat.nilo.firestore.AccountFirestore
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class NiloFirebaseInstanceIDService : FirebaseInstanceIdService() {
 
   @Inject
-  lateinit var pref: Pref
+  lateinit var accountFirestore: AccountFirestore
 
   override fun onCreate() {
     AndroidInjection.inject(this)
@@ -22,7 +22,7 @@ class NiloFirebaseInstanceIDService : FirebaseInstanceIdService() {
 
   override fun onTokenRefresh() {
     FirebaseInstanceId.getInstance().token?.let {
-      pref.setFcmToken(it)
+      accountFirestore.updateFcmToken(it)
     }
   }
 }
