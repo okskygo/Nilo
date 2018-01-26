@@ -86,6 +86,10 @@ dependencies {
 
   implementation depends.firebase.firestore
 
+  //lifecycle
+  implementation depends.lifecycle.extensions
+  implementation depends.lifecycle.reactivestreams
+
   //material dimen
   implementation depends.material.dimens
 
