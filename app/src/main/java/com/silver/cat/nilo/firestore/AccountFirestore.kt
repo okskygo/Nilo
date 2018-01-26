@@ -21,8 +21,11 @@ class AccountFirestore @Inject constructor(private val firebaseFirestore: Fireba
   }
 
   fun updateNickname(nickname: String): Completable {
-    return accountCollection.document(pref.getUid()).set(mapOf("nickname" to nickname),
-        SetOptions.mergeFields("nickname")).completable()
+    return accountCollection.document(pref.getUid()).update("nickname", nickname).completable()
+  }
+
+  fun updateNID(nid: String): Completable {
+    return accountCollection.document(pref.getUid()).update("nid", nid).completable()
   }
 
 }
