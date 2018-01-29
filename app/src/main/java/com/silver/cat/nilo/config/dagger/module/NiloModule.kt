@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
 import com.silver.cat.nilo.config.dagger.ForApplication
+import com.silver.cat.nilo.util.AppSchedulerProvider
+import com.silver.cat.nilo.util.SchedulerProvider
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,7 +14,7 @@ import javax.inject.Singleton
  * Created by xiezhenyu on 2017/1/17.
  */
 
-@Module
+@Module(includes = [ViewModelModule::class])
 class NiloModule {
 
   @Provides
@@ -22,4 +24,8 @@ class NiloModule {
 
   @Provides
   fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
+
+  @Singleton
+  @Provides
+  fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
 }

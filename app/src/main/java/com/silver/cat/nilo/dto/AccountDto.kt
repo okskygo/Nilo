@@ -1,9 +1,9 @@
 package com.silver.cat.nilo.dto
 
 
-data class AccountDto(val uid: String,
-                      val fcmToken: String,
-                      val nid: String? = null,
-                      val nickname: String? = null,
-                      val friends: List<AccountDto> = emptyList()
+data class AccountDto(var uid: String = "",
+                      var fcmToken: String = "",
+                      var nid: String? = null,
+                      var nickname: String? = null,
+                      var friends: List<AccountDto> = emptyList()
 )
