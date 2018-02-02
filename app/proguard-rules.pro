@@ -35,4 +35,9 @@
 
 ### begin dagger
 -dontwarn dagger.android.**
+-dontwarn com.google.errorprone.annotations.*
 ### end dagger
+
+-dontwarn okio.**
+
+-keep class com.silver.cat.nilo.dto.**{*;}
