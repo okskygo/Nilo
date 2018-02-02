@@ -1,9 +1,7 @@
 package com.silver.cat.nilo.util
 
 import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
@@ -45,7 +43,7 @@ inline fun <reified T> Task<DocumentSnapshot>.flowable(): Flowable<T> {
   }, BackpressureStrategy.BUFFER)
 }
 
-inline fun Task<Void>.finishFlowable(): Flowable<Boolean> {
+fun Task<Void>.finishFlowable(): Flowable<Boolean> {
   return Flowable.create({ emitter ->
     this.addOnSuccessListener {
       emitter.onNext(true)
