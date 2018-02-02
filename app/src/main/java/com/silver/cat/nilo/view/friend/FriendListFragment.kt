@@ -55,7 +55,6 @@ class FriendListFragment : BaseFragment(), Injectable {
     friendListViewModel.friends.observe(this, { result ->
       when (result) {
         is Result.Success -> {
-          println(">>>>>>>>>" + "result.data = ${result.data}")
           adapter.update(result.data)
         }
       }
