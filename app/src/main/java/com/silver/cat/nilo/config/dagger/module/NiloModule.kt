@@ -2,7 +2,6 @@ package com.silver.cat.nilo.config.dagger.module
 
 import android.app.Application
 import android.content.Context
-import com.google.firebase.firestore.FirebaseFirestore
 import com.silver.cat.nilo.config.dagger.ForApplication
 import com.silver.cat.nilo.util.AppSchedulerProvider
 import com.silver.cat.nilo.util.SchedulerProvider
@@ -21,9 +20,6 @@ class NiloModule {
   @Singleton
   @ForApplication
   fun provideContext(application: Application): Context = application
-
-  @Provides
-  fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
 
   @Singleton
   @Provides

@@ -5,5 +5,6 @@ data class AccountDto(var uid: String = "",
                       var fcmToken: String = "",
                       var nid: String? = null,
                       var nickname: String? = null,
-                      var friends: List<AccountDto> = emptyList()
+                      val creator: Boolean = false,
+                      var friends: Map<String, Boolean> = emptyMap()
 )

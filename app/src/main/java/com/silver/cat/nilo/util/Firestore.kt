@@ -8,6 +8,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 
 fun Task<Void>.completable(): Completable {
@@ -20,7 +21,21 @@ fun Task<Void>.completable(): Completable {
   }
 }
 
-inline fun <reified T> Task<DocumentSnapshot>.toFlowable(): Flowable<T> {
+inline fun <reified T> Task<QuerySnapshot>.listSingle(): Single<List<T>> {
+  return Single.create { emitter ->
+    this.addOnFailureListener {
+      emitter.onError(it)
+    }.addOnCompleteListener { snap ->
+      if (snap.isSuccessful) {
+        emitter.onSuccess(snap.result.map { it.toObject(T::class.java) })
+      } else {
+        emitter.onSuccess(emptyList())
+      }
+    }
+  }
+}
+
+inline fun <reified T> Task<DocumentSnapshot>.flowable(): Flowable<T> {
   return Flowable.create({ emitter ->
     this.addOnSuccessListener {
       emitter.onNext(it.toObject(T::class.java))
@@ -30,7 +45,17 @@ inline fun <reified T> Task<DocumentSnapshot>.toFlowable(): Flowable<T> {
   }, BackpressureStrategy.BUFFER)
 }
 
-inline fun <reified T> Task<QuerySnapshot>.toListFlowable(): Flowable<List<T>> {
+inline fun Task<Void>.finishFlowable(): Flowable<Boolean> {
+  return Flowable.create({ emitter ->
+    this.addOnSuccessListener {
+      emitter.onNext(true)
+    }.addOnFailureListener {
+      emitter.onError(it)
+    }
+  }, BackpressureStrategy.BUFFER)
+}
+
+inline fun <reified T> Task<QuerySnapshot>.listFlowable(): Flowable<List<T>> {
   return Flowable.create({ emitter ->
     this.addOnFailureListener {
       emitter.onError(it)
@@ -42,10 +67,5 @@ inline fun <reified T> Task<QuerySnapshot>.toListFlowable(): Flowable<List<T>> {
       }
     }
   }, BackpressureStrategy.BUFFER)
-}
-
-inline fun CollectionReference.whereListEqual(key: String, value: List<Any>): Query {
-  this.whereEqualTo(key, value.first())
-  return this
 }
 
