@@ -21,10 +21,23 @@ android {
     multiDexEnabled true
   }
 
+  signingConfigs {
+    Properties props = new Properties()
+    props.load(new FileInputStream(file('secret/password.properties')))
+    release {
+      // keystore's alias is `nilorelease`
+      storeFile file('secret/nilo_release.keystore')
+      storePassword props["KEY_STORE_PASSWORD"]
+      keyAlias "nilorelease"
+      keyPassword props["RELEASE_KEY_PASSWORD"]
+    }
+  }
+
   buildTypes {
     release {
       debuggable false
       zipAlignEnabled true
+      signingConfig signingConfigs.release
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       //      manifestPlaceholders = [googleApiKey: "$niloApiKey"]
@@ -36,6 +49,7 @@ android {
       //      buildConfigField 'String', 'googleApiKey', '"' + niloApiKey + '"'
     }
   }
+
 }
 
 sourceSets {
