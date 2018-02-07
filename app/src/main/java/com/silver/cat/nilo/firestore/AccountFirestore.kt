@@ -85,4 +85,19 @@ class AccountFirestore @Inject constructor(private val pref: Pref) {
         .finishFlowable()
   }
 
+  //TODO learn SingleLiveEvent
+  fun findFriend(nid: String): Flowable<Optional<AccountDto>> {
+    return accountCollection()
+        .whereEqualTo("nid", nid)
+        .get()
+        .listFlowable<AccountDto>()
+        .map {
+          if (it.isEmpty()) {
+            Optional.empty()
+          } else {
+            Optional.of(it[0])
+          }
+        }
+  }
+
 }

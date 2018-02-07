@@ -5,4 +5,6 @@
     <string name="main_bottom_navigation_chat">聊天</string>
     <string name="main_bottom_navigation_friend_list">好友</string>
     <string name="main_bottom_navigation_setting">設定</string>
+    <string name="add_friend">加入好友</string>
+    <string name="add_friend_hint">請輸入好友的ID進行搜尋</string>
 </resources>

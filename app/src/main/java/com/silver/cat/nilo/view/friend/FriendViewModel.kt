@@ -13,8 +13,8 @@ import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
 
-class FriendListViewModel @Inject constructor(private val accountFirestore: AccountFirestore,
-                                              private val schedulerProvider: SchedulerProvider)
+class FriendViewModel @Inject constructor(private val accountFirestore: AccountFirestore,
+                                          private val schedulerProvider: SchedulerProvider)
   : ViewModel(), LifecycleObserver {
 
   private val compositeDisposable: CompositeDisposable = CompositeDisposable()

@@ -31,8 +31,8 @@ class FriendListFragment : BaseFragment(), Injectable {
 
   private val adapter = FriendListAdapter()
 
-  private val friendListViewModel: FriendListViewModel by lazy {
-    ViewModelProviders.of(this, viewModelFactory).get(FriendListViewModel::class.java)
+  private val friendViewModel: FriendViewModel by lazy {
+    ViewModelProviders.of(this, viewModelFactory).get(FriendViewModel::class.java)
   }
 
   override fun onCreateView(inflater: LayoutInflater,
@@ -44,7 +44,7 @@ class FriendListFragment : BaseFragment(), Injectable {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    lifecycle.addObserver(friendListViewModel)
+    lifecycle.addObserver(friendViewModel)
 
     recyclerView.addItemDecoration(DividerItemDecoration(
         context,
@@ -52,7 +52,7 @@ class FriendListFragment : BaseFragment(), Injectable {
     recyclerView.layoutManager = LinearLayoutManager(context)
     recyclerView.adapter = adapter
 
-    friendListViewModel.friends.observe(this, { result ->
+    friendViewModel.friends.observe(this, { result ->
       when (result) {
         is Result.Success -> {
           adapter.update(result.data)
