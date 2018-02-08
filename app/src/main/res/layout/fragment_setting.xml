@@ -3,25 +3,53 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+>
+
+    <LinearLayout
+            android:id="@+id/profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="?attr/selectableItemBackground"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/addFriend">
+
+        <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_account_circle_gray_40dp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+
+    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/addFriend"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
             android:background="?attr/selectableItemBackground"
             android:gravity="center_horizontal"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/temp1"
+            app:layout_constraintLeft_toRightOf="@+id/profile"
+            app:layout_constraintTop_toTopOf="@+id/profile"
+            app:layout_constraintRight_toLeftOf="@+id/temp2"
     >
 
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:src="@drawable/ic_person_add_black_48dp"
         />
 
@@ -34,20 +62,11 @@
     </LinearLayout>
 
     <View
-            android:id="@+id/temp1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/addFriend"
-            app:layout_constraintTop_toTopOf="@+id/addFriend"
-            app:layout_constraintRight_toLeftOf="@+id/temp2"
-    />
-
-    <View
             android:id="@+id/temp2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/temp1"
-            app:layout_constraintTop_toTopOf="@+id/addFriend"
+            app:layout_constraintLeft_toRightOf="@+id/addFriend"
+            app:layout_constraintTop_toTopOf="@+id/profile"
             app:layout_constraintRight_toRightOf="parent"
     />
 

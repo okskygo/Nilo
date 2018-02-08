@@ -12,4 +12,8 @@
     <string name="can_you_find_yourself">能找到自己嗎?</string>
     <string name="become_friends">你們已經成為朋友</string>
     <string name="fail_add_friends">加入朋友失敗</string>
+    <string name="profile_detail">個人資料</string>
+    <string name="permission_request">要求系統權限</string>
+    <string name="permission_all_rationale">Nilo 需要某些權限才可以進行, 請在系統設定允許所有權限。</string>
+    <string name="ok">確定</string>
 </resources>

@@ -3,6 +3,7 @@ package com.silver.cat.nilo.config.dagger.module
 import com.silver.cat.nilo.view.chat.ChatListFragment
 import com.silver.cat.nilo.view.friend.FriendListFragment
 import com.silver.cat.nilo.view.settting.SettingFragment
+import com.silver.cat.nilo.view.settting.SettingProfileFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -17,6 +18,9 @@ interface FragmentBuilderModule {
   fun contributeChatListFragment(): ChatListFragment
 
   @ContributesAndroidInjector
-  fun contributeSessionsFragment(): SettingFragment
+  fun contributeSettingFragment(): SettingFragment
+
+  @ContributesAndroidInjector
+  fun contributeSettingProfileFragment(): SettingProfileFragment
 
 }

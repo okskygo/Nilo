@@ -4,11 +4,11 @@ import android.app.Activity
 import android.app.Application
 import android.app.Service
 import com.silver.cat.nilo.config.dagger.AppInjector
-import com.silver.cat.nilo.config.dagger.NiloComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.HasServiceInjector
+import rx_activity_result2.RxActivityResult
 import javax.inject.Inject
 
 /**
@@ -20,11 +20,12 @@ class NiloApplication : Application(), HasActivityInjector, HasServiceInjector {
 
   @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-  @Inject lateinit var dispatchingServiceInjector:DispatchingAndroidInjector<Service>
+  @Inject lateinit var dispatchingServiceInjector: DispatchingAndroidInjector<Service>
 
   override fun onCreate() {
     super.onCreate()
     AppInjector.init(this)
+    RxActivityResult.register(this)
   }
 
   override fun activityInjector(): AndroidInjector<Activity> {

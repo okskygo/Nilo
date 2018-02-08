@@ -98,4 +98,11 @@ class AccountFirestore @Inject constructor() {
         }
   }
 
+  fun me(uid: String): Flowable<AccountDto> {
+    return accountCollection()
+        .document(uid)
+        .get()
+        .flowable()
+  }
+
 }

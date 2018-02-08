@@ -6,6 +6,7 @@ import com.silver.cat.nilo.config.dagger.ViewModelFactory
 import com.silver.cat.nilo.config.dagger.ViewModelKey
 import com.silver.cat.nilo.view.friend.FriendListViewModel
 import com.silver.cat.nilo.view.settting.SettingAddFriendViewModel
+import com.silver.cat.nilo.view.settting.SettingProfileViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -23,6 +24,11 @@ interface ViewModelModule {
   @IntoMap
   @ViewModelKey(SettingAddFriendViewModel::class)
   fun bindSettingAddFriendViewModel(settingAddFriendViewModel: SettingAddFriendViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(SettingProfileViewModel::class)
+  fun bindSettingProfileViewModel(settingProfileViewModel: SettingProfileViewModel): ViewModel
 
 
   @Binds

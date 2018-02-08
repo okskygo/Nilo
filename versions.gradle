@@ -13,16 +13,17 @@ ext {
       robolectric    : "3.5.1",
       rxlifecycle    : "2.2.1",
       arch           : "1.1.0",
+      glide          : "4.6.1",
   ]
 
   depends = [
-      kotlin       : [
+      kotlin          : [
           stdlib : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
           reflect: "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin",
       ],
 
       //==================== Support Library ====================
-      support      : [
+      support         : [
           v4           : "com.android.support:support-v4:$versions.supportLibrary",
           appcompat    : "com.android.support:appcompat-v7:$versions.supportLibrary",
           design       : "com.android.support:design:$versions.supportLibrary",
@@ -34,52 +35,63 @@ ext {
       ],
 
       //==================== Structure ====================
-      lifecycle    : [
+      lifecycle       : [
           extensions     : "android.arch.lifecycle:extensions:$versions.arch",
           reactivestreams: "android.arch.lifecycle:reactivestreams:$versions.arch",
       ],
-      rxjava2      : [
+      rxjava2         : [
           core   : "io.reactivex.rxjava2:rxjava:2.1.8",
           android: "io.reactivex.rxjava2:rxandroid:2.0.1",
           kotlin : "io.reactivex.rxjava2:rxkotlin:2.2.0",
       ],
-      rxbinding2   : [
+      rxbinding2      : [
           kotlin: "com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0",
       ],
-      rxlifecycle  : [
+      rxlifecycle     : [
           core      : "com.trello.rxlifecycle2:rxlifecycle:$versions.rxlifecycle",
           components: "com.trello.rxlifecycle2:rxlifecycle-components:$versions.rxlifecycle",
           kotlin    : "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:$versions.rxlifecycle",
       ],
-      dagger       : [
+      dagger          : [
           core            : "com.google.dagger:dagger:$versions.dagger",
           compiler        : "com.google.dagger:dagger-compiler:$versions.dagger",
           android         : "com.google.dagger:dagger-android:$versions.dagger",
           androidSupport  : "com.google.dagger:dagger-android-support:$versions.dagger",
           androidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger",
       ],
-      playService  : [
+      playService     : [
           messaging: 'com.google.firebase:firebase-messaging:11.8.0',
           core     : 'com.google.firebase:firebase-core:11.8.0',
           base     : 'com.google.android.gms:play-services-base:11.8.0',
       ],
-      firebase     : [
+      firebase        : [
           firestore: "com.google.firebase:firebase-firestore:$versions.firebase",
           auth     : "com.google.firebase:firebase-auth:$versions.firebase",
           core     : "com.google.firebase:firebase-core:$versions.firebase",
       ],
-
-      material     : [
+      rxActivityResult: [
+          core: "com.github.VictorAlbertos:RxActivityResult:0.4.5-2.x"
+      ],
+      //=================== UI ===================
+      glide           : [
+          core    : "com.github.bumptech.glide:glide:$versions.glide",
+          okhttp3 : "com.github.bumptech.glide:okhttp3-integration:$versions.glide",
+          compiler: "com.github.bumptech.glide:compiler:$versions.glide",
+      ],
+      material        : [
           dimens: "com.dmitrymalkovich.android:material-design-dimens:1.4",
       ],
+      cropper         : [
+          core: "com.theartofdev.edmodo:android-image-cropper:2.6.+",
+      ],
       //==================== Test ====================
-      junit        : "junit:junit:4.12",
-      mockitoKotlin: "com.nhaarman:mockito-kotlin:1.5.0",
-      robolectric  : [
+      junit           : "junit:junit:4.12",
+      mockitoKotlin   : "com.nhaarman:mockito-kotlin:1.5.0",
+      robolectric     : [
           core    : "org.robolectric:robolectric:$versions.robolectric",
           multidex: "org.robolectric:shadows-multidex:$versions.robolectric"
       ],
-      supporttest  : [
+      supporttest     : [
           runner  : "com.android.support.test:runner:1.0.1",
           espresso: "com.android.support.test.espresso:espresso-core:3.0.1",
           contrib : "com.android.support.test.espresso:espresso-contrib:2.2.2"

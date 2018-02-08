@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.silver.cat.nilo">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
             android:name=".NiloApplication"
@@ -37,8 +37,26 @@
         />
 
         <activity
+                android:name=".view.settting.SettingProfileActivity"
+                android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+        />
+
+        <activity
                 android:name=".view.chat.ChatActivity"
                 android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+        />
+
+        <activity
+                android:name=".view.util.permission.PermissionHolderActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:theme="@style/Theme.Transparent"/>
+
+        <activity android:name=".view.util.crop.CropImageActivity"
+                  android:theme="@style/Theme.Transparent"
+        />
+
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+                  android:theme="@style/Base.Theme.AppCompat"
         />
 
         <service

@@ -104,6 +104,19 @@ dependencies {
   implementation depends.lifecycle.extensions
   implementation depends.lifecycle.reactivestreams
 
+  //rxActivityResult
+  implementation depends.rxActivityResult.core
+
+  //==================== UI ====================
+
+  //glide
+  implementation depends.glide.core
+  implementation depends.glide.okhttp3
+  kapt depends.glide.compiler
+
+  //cropper
+  implementation depends.cropper.core
+
   //material dimen
   implementation depends.material.dimens
 

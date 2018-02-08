@@ -25,11 +25,20 @@ class SettingFragment : BaseFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
     addFriend.clickThrottleFirst()
         .compose(bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         .subscribe {
           startActivity(Intent(context, SettingAddFriendActivity::class.java))
         }
+
+    profile.clickThrottleFirst()
+        .compose(bindUntilEvent(FragmentEvent.DESTROY_VIEW))
+        .subscribe {
+          startActivity(Intent(context, SettingProfileActivity::class.java))
+        }
+
+    //TODO fetch me accountDto populate profile
   }
 
 }
