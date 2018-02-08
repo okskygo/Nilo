@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:background="@color/primaryWhiteColor"
 >
 
@@ -30,5 +33,63 @@
             android:background="@android:color/white"
             app:defaultQueryHint="@string/add_friend_hint"
     />
+
+    <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"/>
+
+    <TextView
+            android:id="@+id/notFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/account_not_found"
+            android:visibility="gone"
+            tools:visibility="visible"
+    />
+
+    <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_account_circle_gray_40dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+    />
+
+    <TextView
+            android:id="@+id/nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            tools:text="@tools:sample/full_names"
+            android:visibility="gone"
+            tools:visibility="visible"
+    />
+
+    <TextView
+            android:id="@+id/motto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="@tools:sample/full_names"
+            android:visibility="gone"
+            tools:visibility="visible"
+    />
+
+    <android.support.v7.widget.AppCompatButton
+            android:id="@+id/action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/join"
+            android:visibility="gone"
+            tools:visibility="visible"
+    />
+
 
 </LinearLayout>

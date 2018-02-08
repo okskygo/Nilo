@@ -28,7 +28,7 @@ class SettingFragment : BaseFragment() {
     addFriend.clickThrottleFirst()
         .compose(bindUntilEvent(FragmentEvent.DESTROY_VIEW))
         .subscribe {
-          startActivity(Intent(context, AddFriendActivity::class.java))
+          startActivity(Intent(context, SettingAddFriendActivity::class.java))
         }
   }
 

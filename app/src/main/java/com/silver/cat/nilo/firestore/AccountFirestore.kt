@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-class AccountFirestore @Inject constructor(private val pref: Pref) {
+class AccountFirestore @Inject constructor() {
 
   private fun accountCollection() = FirebaseFirestore.getInstance().collection("account")
 
@@ -23,19 +23,18 @@ class AccountFirestore @Inject constructor(private val pref: Pref) {
 
   fun friends(): Flowable<List<AccountDto>> = friendsProcessor.toSerialized()
 
-  fun updateFcmToken(token: String): Completable {
-    pref.setFcmToken(token)
+  fun updateFcmToken(uid: String, token: String): Completable {
     return accountCollection()
-        .document(pref.getUid())
-        .set(AccountDto(pref.getUid(), token), SetOptions.merge())
+        .document(uid)
+        .set(AccountDto(uid, token), SetOptions.merge())
         .completable()
   }
 
-  fun refreshFriends(): Completable {
+  fun refreshFriends(uid: String): Completable {
 
     return Single.zip(accountCollection().whereEqualTo("creator", true).get().listSingle()
         ,
-        accountCollection().whereEqualTo("friends.${pref.getUid()}", true).whereEqualTo("creator",
+        accountCollection().whereEqualTo("friends.$uid", true).whereEqualTo("creator",
             false).get().listSingle()
         ,
         BiFunction<List<AccountDto>, List<AccountDto>, List<AccountDto>> { creators, friends ->
@@ -49,16 +48,16 @@ class AccountFirestore @Inject constructor(private val pref: Pref) {
         .toCompletable()
   }
 
-  fun updateNickname(nickname: String): Completable {
+  fun updateNickname(uid: String, nickname: String): Completable {
     return accountCollection()
-        .document(pref.getUid())
+        .document(uid)
         .update("nickname", nickname)
         .completable()
   }
 
-  fun updateNid(nid: String): Completable {
+  fun updateNid(uid: String, nid: String): Completable {
     return accountCollection()
-        .document(pref.getUid())
+        .document(uid)
         .update("nid", nid)
         .completable()
   }
@@ -78,15 +77,14 @@ class AccountFirestore @Inject constructor(private val pref: Pref) {
         .flowable()
   }
 
-  fun addFriend(friendUid: String): Flowable<Boolean> {
+  fun addFriend(uid: String, friendUid: String): Flowable<Boolean> {
     return accountCollection()
         .document(friendUid)
-        .update("friends.${pref.getUid()}", true)
+        .update("friends.$uid", true)
         .finishFlowable()
   }
 
-  //TODO learn SingleLiveEvent
-  fun findFriend(nid: String): Flowable<Optional<AccountDto>> {
+  fun findAccount(nid: String): Flowable<Optional<AccountDto>> {
     return accountCollection()
         .whereEqualTo("nid", nid)
         .get()

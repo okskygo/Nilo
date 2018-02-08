@@ -2,6 +2,7 @@ package com.silver.cat.nilo.config.dagger.module
 
 import com.silver.cat.nilo.view.chat.ChatActivity
 import com.silver.cat.nilo.view.main.MainActivity
+import com.silver.cat.nilo.view.settting.SettingAddFriendActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -13,6 +14,9 @@ interface ActivityBuilderModule {
 
   @ContributesAndroidInjector
   fun contributeChatActivity(): ChatActivity
+
+  @ContributesAndroidInjector
+  fun contributeSettingAddFriendActivity(): SettingAddFriendActivity
 
 }
 

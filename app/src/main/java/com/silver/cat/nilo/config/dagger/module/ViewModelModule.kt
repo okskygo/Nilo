@@ -4,7 +4,8 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.silver.cat.nilo.config.dagger.ViewModelFactory
 import com.silver.cat.nilo.config.dagger.ViewModelKey
-import com.silver.cat.nilo.view.friend.FriendViewModel
+import com.silver.cat.nilo.view.friend.FriendListViewModel
+import com.silver.cat.nilo.view.settting.SettingAddFriendViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -15,8 +16,13 @@ interface ViewModelModule {
 
   @Binds
   @IntoMap
-  @ViewModelKey(FriendViewModel::class)
-  fun bindFriendListViewModel(friendViewModel: FriendViewModel): ViewModel
+  @ViewModelKey(FriendListViewModel::class)
+  fun bindFriendListViewModel(friendListViewModel: FriendListViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ViewModelKey(SettingAddFriendViewModel::class)
+  fun bindSettingAddFriendViewModel(settingAddFriendViewModel: SettingAddFriendViewModel): ViewModel
 
 
   @Binds

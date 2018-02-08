@@ -32,7 +32,7 @@
                 android:theme="@style/AppTheme.Dialog"/>
 
         <activity
-                android:name=".view.settting.AddFriendActivity"
+                android:name=".view.settting.SettingAddFriendActivity"
                 android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
         />
 

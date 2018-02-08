@@ -7,4 +7,9 @@
     <string name="main_bottom_navigation_setting">設定</string>
     <string name="add_friend">加入好友</string>
     <string name="add_friend_hint">請輸入好友的ID進行搜尋</string>
+    <string name="join">加入</string>
+    <string name="account_not_found">無法找到該用戶</string>
+    <string name="can_you_find_yourself">能找到自己嗎?</string>
+    <string name="become_friends">你們已經成為朋友</string>
+    <string name="fail_add_friends">加入朋友失敗</string>
 </resources>

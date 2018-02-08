@@ -31,6 +31,10 @@ class Pref @Inject constructor(@ForApplication private val context: Context) {
     return genUid
   }
 
+  fun isMe(nid: String): Boolean {
+    return nid == getUid()
+  }
+
   fun setFcmToken(token: String) {
     val editor = niloPreferences.edit()
     editor.putString("fcmToken", token)
@@ -40,5 +44,6 @@ class Pref @Inject constructor(@ForApplication private val context: Context) {
   fun getFcmToke(): String? {
     return niloPreferences.getString("fcmToken", null)
   }
+
 
 }
