@@ -14,8 +14,8 @@ class SettingAddFriendViewModel @Inject constructor(private val settingAddFriend
 
   fun isMe(nid: String): Boolean = settingAddFriendRepository.isMe(nid)
 
-  fun addFriend(friendUid: String): LiveData<Result<Boolean>> {
-    return settingAddFriendRepository.addFriend(friendUid)
+  fun inviteFriend(friendUid: String): LiveData<Result<Boolean>> {
+    return settingAddFriendRepository.inviteFriend(friendUid)
         .toResult(schedulerProvider)
         .toLiveData()
   }

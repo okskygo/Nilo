@@ -7,5 +7,6 @@ data class AccountDto(var uid: String = "",
                       var nickname: String? = null,
                       var motto: String? = null,
                       val creator: Boolean = false,
-                      var friends: Map<String, Boolean> = emptyMap()
+                      var friends: Map<String, Boolean> = emptyMap(),
+                      var inviteFriends: Map<String, Boolean> = emptyMap()
 )

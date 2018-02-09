@@ -13,8 +13,8 @@ class SettingAddFriendRepository @Inject constructor(private val pref: Pref,
 
   fun isMe(nid: String): Boolean = pref.isMe(nid)
 
-  fun addFriend(friendUid: String): Flowable<Boolean> {
-    return accountFirestore.addFriend(pref.getUid(), friendUid)
+  fun inviteFriend(friendUid: String): Flowable<Boolean> {
+    return accountFirestore.inviteFriend(pref.getUid(), friendUid)
   }
 
   fun findAccount(nid: String): Flowable<Optional<AccountDto>> {

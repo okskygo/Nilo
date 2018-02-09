@@ -17,6 +17,7 @@ import com.silver.cat.nilo.view.util.crop.CropImageActivity
 import com.silver.cat.nilo.view.util.glide.NetworkImageView
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
 
@@ -48,9 +49,7 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
             avatarPreference.notifyViewHolder()
           }
         }
-      }.apply {
-        compositeDisposable.add(this)
-      }
+      }.addTo(compositeDisposable)
       true
     }
 

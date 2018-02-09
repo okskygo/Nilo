@@ -5,13 +5,14 @@
     <string name="main_bottom_navigation_chat">聊天</string>
     <string name="main_bottom_navigation_friend_list">好友</string>
     <string name="main_bottom_navigation_setting">設定</string>
-    <string name="add_friend">加入好友</string>
-    <string name="add_friend_hint">請輸入好友的ID進行搜尋</string>
+    <string name="invite_friend">加入好友</string>
+    <string name="search_friend_hint">請輸入好友的ID進行搜尋</string>
     <string name="join">加入</string>
     <string name="account_not_found">無法找到該用戶</string>
     <string name="can_you_find_yourself">能找到自己嗎?</string>
     <string name="become_friends">你們已經成為朋友</string>
-    <string name="fail_add_friends">加入朋友失敗</string>
+    <string name="invite_friends">已發送朋友邀請</string>
+    <string name="invite_friends_failure">邀請失敗</string>
     <string name="profile_detail">個人資料</string>
     <string name="permission_request">要求系統權限</string>
     <string name="permission_all_rationale">Nilo 需要某些權限才可以進行, 請在系統設定允許所有權限。</string>

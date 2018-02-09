@@ -77,10 +77,10 @@ class AccountFirestore @Inject constructor() {
         .flowable()
   }
 
-  fun addFriend(uid: String, friendUid: String): Flowable<Boolean> {
+  fun inviteFriend(uid: String, friendUid: String): Flowable<Boolean> {
     return accountCollection()
         .document(friendUid)
-        .update("friends.$uid", true)
+        .update("inviteFriends.$uid", true)
         .finishFlowable()
   }
 

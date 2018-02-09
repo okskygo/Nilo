@@ -50,17 +50,17 @@ class SettingAddFriendActivity : BaseActivity(), Injectable {
         .compose(bindUntilEvent(ActivityEvent.DESTROY))
         .subscribe {
           accountDto?.let {
-            viewModel.addFriend(it.uid).observe(this, { result ->
+            viewModel.inviteFriend(it.uid).observe(this, { result ->
               when (result) {
                 is Result.Success -> {
                   action.visibility = View.GONE
                   Toast.makeText(this@SettingAddFriendActivity,
-                      R.string.become_friends,
+                      R.string.invite_friends,
                       Toast.LENGTH_SHORT).show()
                 }
                 is Result.Failure -> {
                   Toast.makeText(this@SettingAddFriendActivity,
-                      R.string.fail_add_friends,
+                      R.string.invite_friends_failure,
                       Toast.LENGTH_SHORT).show()
                 }
               }
@@ -120,7 +120,7 @@ class SettingAddFriendActivity : BaseActivity(), Injectable {
     actionBar.setHomeButtonEnabled(true)
     actionBar.setDisplayHomeAsUpEnabled(true)
     actionBar.setDisplayShowTitleEnabled(true)
-    actionBar.title = getString(R.string.add_friend)
+    actionBar.title = getString(R.string.invite_friend)
     actionBar.displayOptions = ActionBar.DISPLAY_HOME_AS_UP or ActionBar.DISPLAY_SHOW_TITLE
     toolbar.setNavigationOnClickListener { onBackPressed() }
   }

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@android:color/white"
-            app:defaultQueryHint="@string/add_friend_hint"
+            app:defaultQueryHint="@string/search_friend_hint"
     />
 
     <android.support.v4.widget.Space
