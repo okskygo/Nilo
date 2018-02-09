@@ -15,6 +15,7 @@ import com.silver.cat.nilo.util.Result
 import com.silver.cat.nilo.util.observe
 import com.silver.cat.nilo.view.util.crop.CropImageActivity
 import com.silver.cat.nilo.view.util.glide.NetworkImageView
+import com.silver.cat.nilo.view.util.input.InputActivity
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -33,11 +34,19 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
   }
 
   private lateinit var avatarPreference: SettingProfileAvatarPreference
+  private lateinit var nicknamePreference: Preference
+  private lateinit var mottoPreference: Preference
+  private lateinit var nidPreference: Preference
+
+  private var accountDto: AccountDto? = null
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     AndroidSupportInjection.inject(this)
     addPreferencesFromResource(R.xml.fragment_setting_profile)
     avatarPreference = findPreference("avatarPreference") as SettingProfileAvatarPreference
+    nicknamePreference = findPreference("nickname")
+    mottoPreference = findPreference("motto")
+    nidPreference = findPreference("nid")
 
     avatarPreference.setOnPreferenceClickListener {
       val activity = activity ?: return@setOnPreferenceClickListener true
@@ -53,11 +62,61 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
       true
     }
 
+    nicknamePreference.setOnPreferenceClickListener {
+      val activity = activity ?: return@setOnPreferenceClickListener true
+      val accountDto = accountDto ?: return@setOnPreferenceClickListener true
+
+      InputActivity.Builder(30,
+          getString(R.string.nickname_hint),
+          getString(R.string.nickname),
+          accountDto.nickname)
+          .startActivityForResult(activity).subscribe {
+        if (it.isPresent) {
+          nicknamePreference.summary = it.get()
+        }
+      }.addTo(compositeDisposable)
+      true
+    }
+
+    mottoPreference.setOnPreferenceClickListener {
+      val activity = activity ?: return@setOnPreferenceClickListener true
+      val accountDto = accountDto ?: return@setOnPreferenceClickListener true
+
+      InputActivity.Builder(100,
+          getString(R.string.motto_hint),
+          getString(R.string.motto),
+          accountDto.motto)
+          .startActivityForResult(activity).subscribe {
+        if (it.isPresent) {
+          mottoPreference.summary = it.get()
+        }
+      }.addTo(compositeDisposable)
+      true
+    }
+
+    nidPreference.setOnPreferenceClickListener {
+      val activity = activity ?: return@setOnPreferenceClickListener true
+      val accountDto = accountDto ?: return@setOnPreferenceClickListener true
+      if (accountDto.nid != null) return@setOnPreferenceClickListener true
+
+      InputActivity.Builder(10, getString(R.string.id_hint), getString(R.string.id))
+          .startActivityForResult(activity).subscribe {
+        if (it.isPresent) {
+          nidPreference.summary = it.get()
+        }
+      }.addTo(compositeDisposable)
+      true
+    }
+
     viewModel.me.observe(this, { result ->
       when (result) {
         is Result.Success -> {
           val accountDto = result.data
+          this.accountDto = accountDto
           avatarPreference.accountDto = accountDto
+          nicknamePreference.summary = accountDto.nickname
+          mottoPreference.summary = accountDto.motto ?: " "
+          nidPreference.summary = accountDto.nid ?: getString(R.string.not_set_yet)
         }
       }
     })

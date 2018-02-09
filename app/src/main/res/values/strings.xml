@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Nilo</string>
-    <string name="please_wait">請稍候...</string>
-    <string name="main_search_hint">請輸入想搜尋的關鍵字...</string>
+    <string name="please_wait">請稍候…</string>
+    <string name="main_search_hint">請輸入想搜尋的關鍵字…</string>
     <string name="main_bottom_navigation_chat">聊天</string>
     <string name="main_bottom_navigation_friend_list">好友</string>
     <string name="main_bottom_navigation_setting">設定</string>
@@ -17,4 +17,12 @@
     <string name="permission_request">要求系統權限</string>
     <string name="permission_all_rationale">Nilo 需要某些權限才可以進行, 請在系統設定允許所有權限。</string>
     <string name="ok">確定</string>
+    <string name="nickname">姓名</string>
+    <string name="nickname_hint">請輸入姓名</string>
+    <string name="motto">狀態消息</string>
+    <string name="motto_hint">請輸入狀態消息…</string>
+    <string name="id">ID</string>
+    <string name="id_hint">請輸入ID…</string>
+    <string name="save">儲存</string>
+    <string name="not_set_yet">尚未設定</string>
 </resources>

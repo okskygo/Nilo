@@ -14,7 +14,8 @@
         <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="?attr/actionBarSize"
+                android:minHeight="?attr/actionBarSize"
                 android:background="@color/primaryColor"
                 android:theme="@style/ToolbarTheme"
         />
@@ -22,7 +23,7 @@
         <com.silver.cat.nilo.view.widget.tab.EasyTabLayout
                 android:id="@+id/easyTabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
     </android.support.design.widget.AppBarLayout>
 

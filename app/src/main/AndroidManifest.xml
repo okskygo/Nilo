@@ -42,6 +42,11 @@
         />
 
         <activity
+                android:name=".view.util.input.InputActivity"
+                android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+        />
+
+        <activity
                 android:name=".view.chat.ChatActivity"
                 android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
         />

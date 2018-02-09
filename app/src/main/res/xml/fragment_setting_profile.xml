@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
 >
 
     <com.silver.cat.nilo.view.settting.SettingProfileAvatarPreference
             android:key="avatarPreference"
     />
 
-</PreferenceScreen>
+    <android.support.v7.preference.PreferenceScreen
+            android:key="nickname"
+            android:title="@string/nickname"
+            android:summary=" "
+    />
+
+    <android.support.v7.preference.PreferenceScreen
+            android:key="motto"
+            android:title="@string/motto"
+            android:summary=" "
+    />
+
+    <android.support.v7.preference.PreferenceScreen
+            android:key="nid"
+            android:title="@string/id"
+            android:summary=" "
+    />
+
+</android.support.v7.preference.PreferenceScreen>
