@@ -15,6 +15,7 @@ import com.bumptech.glide.request.FutureTarget
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.silver.cat.nilo.R
 import com.silver.cat.nilo.view.util.AdjustableAppCompatImageView
 import java.io.File
 
@@ -31,6 +32,19 @@ open class NetworkImageView @kotlin.jvm.JvmOverloads constructor(context: Contex
 
   init {
     defaultImageScaleType = scaleType
+    if (attrs != null) {
+      val a = context.theme
+          .obtainStyledAttributes(attrs, R.styleable.NetworkImageView, 0, 0)
+      val defaultImageResId: Int
+      try {
+        defaultImageResId = a.getResourceId(R.styleable.NetworkImageView_defaultImage, 0)
+      } finally {
+        a.recycle()
+      }
+      if (defaultImageResId != 0) {
+        setDefaultImageResId(defaultImageResId, ImageView.ScaleType.CENTER_CROP)
+      }
+    }
   }
 
   fun setImageUrl(url: String?) {
@@ -85,7 +99,7 @@ open class NetworkImageView @kotlin.jvm.JvmOverloads constructor(context: Contex
         .placeholder(defaultImageId)
         .dontAnimate()
         .dontTransform()
-        .scaleType(defaultImageScaleType)
+        .circle(circle())
 
     viewTarget = Glide.with(this)
         .load(source)
@@ -158,6 +172,10 @@ open class NetworkImageView @kotlin.jvm.JvmOverloads constructor(context: Contex
     }
   }
 
+  open fun circle(): Boolean {
+    return false
+  }
+
 }
 
 interface RawImageDownloadListener {
@@ -169,6 +187,13 @@ fun RequestOptions.scaleType(scaleType: ImageView.ScaleType): RequestOptions {
     return this.centerCrop()
   } else if (scaleType == ImageView.ScaleType.FIT_CENTER) {
     return this.fitCenter()
+  }
+  return this
+}
+
+fun RequestOptions.circle(boolean: Boolean): RequestOptions {
+  if (boolean) {
+    return this.circleCrop()
   }
   return this
 }

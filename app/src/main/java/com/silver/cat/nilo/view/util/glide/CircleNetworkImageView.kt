@@ -9,10 +9,10 @@ import android.util.AttributeSet
 class CircleNetworkImageView @JvmOverloads constructor(context: Context,
                                                        attrs: AttributeSet? = null,
                                                        defStyle: Int = 0)
-  : RoundedNetworkImageView(context, attrs, defStyle) {
+  : NetworkImageView(context, attrs, defStyle) {
 
-  init {
-    isCircular = true
+  override fun circle(): Boolean {
+    return true
   }
 
 }

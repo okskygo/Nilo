@@ -6,14 +6,7 @@
         <attr name="shimmer_auto_start" format="boolean|reference"/>
         <attr name="shimmer_angle" format="integer|reference"/>
     </declare-styleable>
-    <declare-styleable name="RoundedNetworkImageView">
-        <attr name="borderColor" format="reference|color"/>
-        <attr name="roundedBorderWidth" format="dimension"/>
-        <attr name="roundedRadius" format="dimension"/>
-        <attr name="leftTopRoundedRadius" format="boolean"/>
-        <attr name="leftBottomRoundedRadius" format="boolean"/>
-        <attr name="rightTopRoundedRadius" format="boolean"/>
-        <attr name="rightBottomRoundedRadius" format="boolean"/>
+    <declare-styleable name="NetworkImageView">
         <attr name="defaultImage" format="integer"/>
     </declare-styleable>
 </resources>
