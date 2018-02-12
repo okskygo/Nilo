@@ -1,18 +1,23 @@
 package com.silver.cat.nilo.view.settting
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 import android.support.v7.preference.PreferenceViewHolder
 import android.util.AttributeSet
+import android.widget.Toast
 import com.silver.cat.nilo.R
 import com.silver.cat.nilo.config.dagger.Injectable
 import com.silver.cat.nilo.dto.AccountDto
 import com.silver.cat.nilo.util.Result
 import com.silver.cat.nilo.util.observe
+import com.silver.cat.nilo.view.util.ProgressDialogFragment
 import com.silver.cat.nilo.view.util.crop.CropImageActivity
 import com.silver.cat.nilo.view.util.glide.NetworkImageView
 import com.silver.cat.nilo.view.util.input.InputActivity
@@ -43,6 +48,9 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     AndroidSupportInjection.inject(this)
     addPreferencesFromResource(R.xml.fragment_setting_profile)
+
+    lifecycle.addObserver(viewModel)
+
     avatarPreference = findPreference("avatarPreference") as SettingProfileAvatarPreference
     nicknamePreference = findPreference("nickname")
     mottoPreference = findPreference("motto")
@@ -54,8 +62,8 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
         if (optional.isPresent) {
           val result = optional.get()
           result.uri?.let {
-            avatarPreference.imageUri = it
-            avatarPreference.notifyViewHolder()
+            viewModel.updateAvatar(Uri.parse(it))
+                .observe(this, SettingProfileObserver(context, childFragmentManager))
           }
         }
       }.addTo(compositeDisposable)
@@ -72,7 +80,8 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
           accountDto.nickname)
           .startActivityForResult(activity).subscribe {
         if (it.isPresent) {
-          nicknamePreference.summary = it.get()
+          viewModel.updateNickname(it.get())
+              .observe(this, SettingProfileObserver(context, childFragmentManager))
         }
       }.addTo(compositeDisposable)
       true
@@ -88,7 +97,8 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
           accountDto.motto)
           .startActivityForResult(activity).subscribe {
         if (it.isPresent) {
-          mottoPreference.summary = it.get()
+          viewModel.updateMotto(it.get())
+              .observe(this, SettingProfileObserver(context, childFragmentManager))
         }
       }.addTo(compositeDisposable)
       true
@@ -102,7 +112,8 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
       InputActivity.Builder(10, getString(R.string.id_hint), getString(R.string.id))
           .startActivityForResult(activity).subscribe {
         if (it.isPresent) {
-          nidPreference.summary = it.get()
+          viewModel.updateNid(it.get())
+              .observe(this, SettingProfileObserver(context, childFragmentManager))
         }
       }.addTo(compositeDisposable)
       true
@@ -117,6 +128,7 @@ class SettingProfileFragment : PreferenceFragmentCompat(), Injectable {
           nicknamePreference.summary = accountDto.nickname
           mottoPreference.summary = accountDto.motto ?: " "
           nidPreference.summary = accountDto.nid ?: getString(R.string.not_set_yet)
+          avatarPreference.notifyViewHolder()
         }
       }
     })
@@ -149,7 +161,7 @@ class SettingProfileAvatarPreference @JvmOverloads constructor(context: Context,
       avatar.setImageUrl(imageUri)
     } else {
       accountDto?.let {
-        //        avatar.setImageUrl()
+        avatar.setImageUrl(it.avatar)
       }
     }
   }
@@ -157,4 +169,31 @@ class SettingProfileAvatarPreference @JvmOverloads constructor(context: Context,
   fun notifyViewHolder() {
     notifyChanged()
   }
+}
+
+class SettingProfileObserver<T>(private val context: Context?,
+                                private val fragmentManager: FragmentManager) : Observer<Result<T>> {
+
+  var progress: ProgressDialogFragment? = null
+
+  override fun onChanged(result: Result<T>?) {
+    when (result) {
+      is Result.InProgress -> {
+        val progress = ProgressDialogFragment()
+        this.progress = progress
+        progress.show(fragmentManager, progress.tag)
+      }
+      is Result.Success -> {
+        progress?.dismiss()
+      }
+      is Result.Failure -> {
+        context?.let {
+          Toast.makeText(it, R.string.failure, Toast.LENGTH_SHORT).show()
+        }
+        progress?.dismiss()
+      }
+    }
+
+  }
+
 }

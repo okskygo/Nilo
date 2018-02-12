@@ -12,14 +12,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <ImageView
-                android:id="@+id/icon"
+        <com.silver.cat.nilo.view.util.glide.CircleNetworkImageView
+                android:id="@+id/avatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_account_circle_gray_40dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="6dp"
+                app:defaultImage="@drawable/ic_account_circle_gray_40dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
                 android:lines="1"
                 android:ellipsize="end"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                app:layout_constraintLeft_toRightOf="@+id/icon"
+                app:layout_constraintLeft_toRightOf="@+id/avatar"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 tools:text="nickname"

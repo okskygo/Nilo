@@ -2,8 +2,8 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="match_parent"
 >
 
     <LinearLayout
@@ -20,15 +20,24 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/addFriend">
 
-        <ImageView
+        <com.silver.cat.nilo.view.util.glide.CircleNetworkImageView
+                android:id="@+id/avatar"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/ic_account_circle_gray_40dp"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                app:defaultImage="@drawable/ic_account_circle_gray_40dp"
         />
 
+        <android.support.v4.widget.Space
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"/>
+
         <TextView
+                android:id="@+id/nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                tools:text="@tools:sample/full_names"
         />
 
     </LinearLayout>
@@ -52,6 +61,10 @@
                 android:layout_height="48dp"
                 android:src="@drawable/ic_person_add_black_48dp"
         />
+
+        <android.support.v4.widget.Space
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"/>
 
         <TextView
                 android:layout_width="wrap_content"

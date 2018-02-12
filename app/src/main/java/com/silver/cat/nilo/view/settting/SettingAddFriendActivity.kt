@@ -93,7 +93,7 @@ class SettingAddFriendActivity : BaseActivity(), Injectable {
     notFound.visibility = View.GONE
 
     nickname.text = accountDto.nickname
-    //TODO avatar
+    avatar.setImageUrl(accountDto.avatar)
 
     if (viewModel.isMe(accountDto.uid)) {
       motto.visibility = View.VISIBLE

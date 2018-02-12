@@ -50,14 +50,14 @@
             tools:visibility="visible"
     />
 
-    <ImageView
+    <com.silver.cat.nilo.view.util.glide.CircleNetworkImageView
             android:id="@+id/avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_account_circle_gray_40dp"
             android:visibility="gone"
             tools:visibility="visible"
+            app:defaultImage="@drawable/ic_account_circle_gray_40dp"
     />
 
     <TextView

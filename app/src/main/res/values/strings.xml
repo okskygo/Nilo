@@ -25,4 +25,6 @@
     <string name="id_hint">請輸入ID…</string>
     <string name="save">儲存</string>
     <string name="not_set_yet">尚未設定</string>
+    <string name="message_sending">請稍等...</string>
+    <string name="failure">更新失敗</string>
 </resources>

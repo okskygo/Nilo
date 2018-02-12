@@ -48,18 +48,32 @@ class AccountFirestore @Inject constructor() {
         .toCompletable()
   }
 
-  fun updateNickname(uid: String, nickname: String): Completable {
+  fun updateAvatar(uid: String, url: String): Completable {
     return accountCollection()
         .document(uid)
-        .update("nickname", nickname)
+        .update("avatar", url)
         .completable()
   }
 
-  fun updateNid(uid: String, nid: String): Completable {
+  fun updateNickname(uid: String, nickname: String): Flowable<Boolean> {
+    return accountCollection()
+        .document(uid)
+        .update("nickname", nickname)
+        .finishFlowable()
+  }
+
+  fun updateMotto(uid: String, motto: String): Flowable<Boolean> {
+    return accountCollection()
+        .document(uid)
+        .update("motto", motto)
+        .finishFlowable()
+  }
+
+  fun updateNid(uid: String, nid: String): Flowable<Boolean> {
     return accountCollection()
         .document(uid)
         .update("nid", nid)
-        .completable()
+        .finishFlowable()
   }
 
   @Deprecated("")

@@ -108,8 +108,8 @@ class FriendListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.i
 
   fun bind(accountDto: AccountDto) {
     this.accountDto = accountDto
-    //TODO avatar
     itemView.nickname.text = accountDto.nickname
     itemView.motto.text = accountDto.motto
+    itemView.avatar.setImageUrl(accountDto.avatar)
   }
 }
