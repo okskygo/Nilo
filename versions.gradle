@@ -60,13 +60,12 @@ ext {
           androidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger",
       ],
       playService     : [
-          messaging: 'com.google.firebase:firebase-messaging:11.8.0',
-          core     : 'com.google.firebase:firebase-core:11.8.0',
-          base     : 'com.google.android.gms:play-services-base:11.8.0',
+          base: 'com.google.android.gms:play-services-base:11.8.0',
       ],
       firebase        : [
+          messaging: "com.google.firebase:firebase-messaging:$versions.firebase",
           firestore: "com.google.firebase:firebase-firestore:$versions.firebase",
-          auth     : "com.google.firebase:firebase-auth:$versions.firebase",
+          storage  : "com.google.firebase:firebase-storage:$versions.firebase",
           core     : "com.google.firebase:firebase-core:$versions.firebase",
       ],
       rxActivityResult: [

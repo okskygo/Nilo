@@ -93,12 +93,14 @@ dependencies {
   implementation depends.rxlifecycle.kotlin
   implementation depends.rxlifecycle.components
 
-  //firebase
-  implementation depends.playService.messaging
-  implementation depends.playService.core
+  //playService
   implementation depends.playService.base
 
+  //firebase
+  implementation depends.firebase.core
+  implementation depends.firebase.storage
   implementation depends.firebase.firestore
+  implementation depends.firebase.messaging
 
   //lifecycle
   implementation depends.lifecycle.extensions
