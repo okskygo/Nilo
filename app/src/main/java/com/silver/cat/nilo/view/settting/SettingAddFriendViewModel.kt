@@ -14,6 +14,10 @@ class SettingAddFriendViewModel @Inject constructor(private val accountRepositor
 
   fun isMe(nid: String): Boolean = accountRepository.isMe(nid)
 
+  fun isFriend(accountDto: AccountDto): Boolean = accountRepository.isFriend(accountDto)
+
+  fun isInvite(accountDto: AccountDto): Boolean = accountRepository.isInvite(accountDto)
+
   fun inviteFriend(friendUid: String): LiveData<Result<Boolean>> {
     return accountRepository.inviteFriend(friendUid)
         .toResult(schedulerProvider)

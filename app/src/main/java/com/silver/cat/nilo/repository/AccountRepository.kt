@@ -102,4 +102,12 @@ class AccountRepository @Inject constructor(private val pref: Pref,
         }
   }
 
+  fun isFriend(accountDto: AccountDto): Boolean {
+    return accountDto.friends.containsKey(pref.getUid())
+  }
+
+  fun isInvite(accountDto: AccountDto): Boolean {
+    return accountDto.inviteFriends.containsKey(pref.getUid())
+  }
+
 }

@@ -87,20 +87,29 @@ class SettingAddFriendActivity : BaseActivity(), Injectable {
   private fun populateAccount(accountDto: AccountDto) {
     this.accountDto = accountDto
     avatar.visibility = View.VISIBLE
-    action.visibility = View.VISIBLE
+    action.visibility = View.GONE
     nickname.visibility = if (accountDto.nickname != null) View.VISIBLE else View.GONE
-    motto.visibility = if (accountDto.motto != null) View.VISIBLE else View.GONE
     notFound.visibility = View.GONE
 
     nickname.text = accountDto.nickname
     avatar.setImageUrl(accountDto.avatar)
 
-    if (viewModel.isMe(accountDto.uid)) {
-      motto.visibility = View.VISIBLE
-      motto.setText(R.string.can_you_find_yourself)
-      action.visibility = View.GONE
-    } else {
-      motto.text = accountDto.motto
+    motto.visibility = View.VISIBLE
+    when {
+      viewModel.isMe(accountDto.uid) -> {
+        motto.setText(R.string.can_you_find_yourself)
+      }
+      viewModel.isFriend(accountDto) -> {
+        motto.setText(R.string.become_friends)
+      }
+      viewModel.isInvite(accountDto) -> {
+        motto.setText(R.string.invite_friends)
+      }
+      else -> {
+        motto.visibility = if (accountDto.motto != null) View.VISIBLE else View.GONE
+        motto.text = accountDto.motto
+        action.visibility = View.VISIBLE
+      }
     }
 
   }
