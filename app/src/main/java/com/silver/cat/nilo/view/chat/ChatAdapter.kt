@@ -21,8 +21,8 @@ class ChatAdapter : RecyclerView.Adapter<MessageViewHolder>() {
     }
   }
 
-  override fun onBindViewHolder(holder: MessageViewHolder?, position: Int) {
-    holder?.bind(messages[position])
+  override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
+    holder.bind(messages[position])
   }
 
   override fun getItemCount(): Int = messages.count()
